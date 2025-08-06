@@ -68,7 +68,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF1B5E20),
+        statusBarColor: Color(0xFF4CAF50), // Light green
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark, // For iOS
         systemNavigationBarColor: Colors.white,
@@ -77,7 +77,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF1B5E20),
+          backgroundColor: const Color(0xFF4CAF50), // Light green
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),

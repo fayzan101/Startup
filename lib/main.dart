@@ -15,22 +15,22 @@ class MyApp extends StatelessWidget {
       title: 'Hojaega',
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(
-          seedColor: const Color(0xFF1B5E20),
+          seedColor: const Color(0xFF4CAF50), // Light green
           brightness: Brightness.light,
         ),
         appBarTheme: const AppBarTheme(
-          backgroundColor: Color(0xFF1B5E20),
+          backgroundColor: Color(0xFF4CAF50), // Light green
           foregroundColor: Colors.white,
           elevation: 0,
         ),
         navigationBarTheme: const NavigationBarThemeData(
-          backgroundColor: Color(0xFF1B5E20),
+          backgroundColor: Color(0xFF4CAF50), // Light green
           indicatorColor: Colors.white24,
           labelTextStyle: MaterialStatePropertyAll(
             TextStyle(color: Colors.white),
           ),
         ),
-        scaffoldBackgroundColor: const Color(0xFF1B5E20),
+        scaffoldBackgroundColor: const Color(0xFF4CAF50), // Light green
       ),
       home: const SplashScreen(),
     );

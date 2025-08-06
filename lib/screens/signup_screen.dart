@@ -56,7 +56,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF1B5E20),
+        statusBarColor: Color(0xFF4CAF50), // Light green
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark, // For iOS
         systemNavigationBarColor: Colors.white,
@@ -65,7 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF1B5E20),
+          backgroundColor: const Color(0xFF4CAF50), // Light green
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -107,11 +107,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             ],
                           ),
                           child: Center(
-                            child: Icon(
-                              Icons.phone_android,
-                              size: screenWidth * 0.1,
-                              color: const Color(0xFF1B5E20),
-                            ),
+                                                         child: Icon(
+                               Icons.phone_android,
+                               size: screenWidth * 0.1,
+                               color: const Color(0xFF4CAF50), // Light green
+                             ),
                           ),
                         ),
                         
@@ -119,11 +119,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         
                         Text(
                           'Enter your phone number',
-                          style: GoogleFonts.poppins(
-                            fontSize: screenWidth * 0.05,
-                            fontWeight: FontWeight.w600,
-                            color: const Color(0xFF1B5E20),
-                          ),
+                                                      style: GoogleFonts.poppins(
+                              fontSize: screenWidth * 0.05,
+                              fontWeight: FontWeight.w600,
+                              color: const Color(0xFF4CAF50), // Light green
+                            ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.02),
@@ -133,7 +133,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xFF1B5E20).withOpacity(0.7),
+                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -145,8 +145,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: _phoneFocusNode.hasFocus
-                                  ? const Color(0xFF1B5E20)
-                                  : const Color(0xFF1B5E20).withOpacity(0.3),
+                                  ? const Color(0xFF4CAF50) // Light green
+                                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(15),
@@ -156,7 +156,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
                                 decoration: const BoxDecoration(
-                                  color: Color(0xFF1B5E20),
+                                  color: Color(0xFF4CAF50), // Light green
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(13),
                                     bottomLeft: Radius.circular(13),
@@ -179,14 +179,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   style: GoogleFonts.poppins(
                                     fontSize: screenWidth * 0.04,
                                     fontWeight: FontWeight.w500,
-                                    color: const Color(0xFF1B5E20),
+                                    color: const Color(0xFF4CAF50), // Light green
                                   ),
                                   decoration: InputDecoration(
                                     hintText: 'Enter phone number',
                                     hintStyle: GoogleFonts.poppins(
                                       fontSize: screenWidth * 0.04,
                                       fontWeight: FontWeight.w400,
-                                      color: const Color(0xFF1B5E20).withOpacity(0.5),
+                                      color: const Color(0xFF4CAF50).withOpacity(0.5), // Light green
                                     ),
                                     border: InputBorder.none,
                                     contentPadding: const EdgeInsets.symmetric(horizontal: 15, vertical: 18),
@@ -210,7 +210,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             Icon(
                               Icons.info_outline,
                               size: screenWidth * 0.035,
-                              color: const Color(0xFF1B5E20).withOpacity(0.7),
+                              color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                             ),
                             SizedBox(width: screenWidth * 0.02),
                             Expanded(
@@ -219,7 +219,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.03,
                                   fontWeight: FontWeight.w400,
-                                  color: const Color(0xFF1B5E20).withOpacity(0.7),
+                                  color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                                 ),
                               ),
                             ),
@@ -236,8 +236,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             onPressed: _isValidPhone ? _sendOtp : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _isValidPhone
-                                  ? const Color(0xFF1B5E20)
-                                  : const Color(0xFF1B5E20).withOpacity(0.3),
+                                  ? const Color(0xFF4CAF50) // Light green
+                                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green with opacity
                               foregroundColor: Colors.white,
                               elevation: _isValidPhone ? 8 : 0,
                               shadowColor: Colors.black.withOpacity(0.3),
@@ -267,7 +267,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.03,
                                   fontWeight: FontWeight.w400,
-                                  color: const Color(0xFF1B5E20).withOpacity(0.7),
+                                  color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                                 ),
                                 textAlign: TextAlign.center,
                               ),

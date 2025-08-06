@@ -289,7 +289,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
 
          return AnnotatedRegion<SystemUiOverlayStyle>(
        value: const SystemUiOverlayStyle(
-         statusBarColor: Color(0xFF1B5E20),
+         statusBarColor: Color(0xFF4CAF50), // Light green
          statusBarIconBrightness: Brightness.light,
          statusBarBrightness: Brightness.dark, // For iOS
          systemNavigationBarColor: Colors.white,
@@ -298,7 +298,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
        child: Scaffold(
          backgroundColor: Colors.white,
          appBar: AppBar(
-           backgroundColor: const Color(0xFF1B5E20),
+           backgroundColor: const Color(0xFF4CAF50), // Light green
            elevation: 0,
                        leading: Builder(
               builder: (context) => IconButton(

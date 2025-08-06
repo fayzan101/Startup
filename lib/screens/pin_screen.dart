@@ -75,7 +75,7 @@ class _PinScreenState extends State<PinScreen> {
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF1B5E20),
+        statusBarColor: Color(0xFF4CAF50), // Light green
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark, // For iOS
         systemNavigationBarColor: Colors.white,
@@ -84,7 +84,7 @@ class _PinScreenState extends State<PinScreen> {
       child: Scaffold(
         backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF1B5E20),
+          backgroundColor: const Color(0xFF4CAF50), // Light green
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back, color: Colors.white),
@@ -129,7 +129,7 @@ class _PinScreenState extends State<PinScreen> {
                             child: Icon(
                               Icons.lock_outline,
                               size: screenWidth * 0.1,
-                              color: const Color(0xFF1B5E20),
+                              color: const Color(0xFF4CAF50), // Light green
                             ),
                           ),
                         ),
@@ -141,7 +141,7 @@ class _PinScreenState extends State<PinScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.05,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xFF1B5E20),
+                            color: const Color(0xFF4CAF50), // Light green
                           ),
                         ),
                         
@@ -152,7 +152,7 @@ class _PinScreenState extends State<PinScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xFF1B5E20).withOpacity(0.7),
+                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -170,8 +170,8 @@ class _PinScreenState extends State<PinScreen> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: _focusNodes[index].hasFocus
-                                      ? const Color(0xFF1B5E20)
-                                      : const Color(0xFF1B5E20).withOpacity(0.3),
+                                      ? const Color(0xFF4CAF50) // Light green
+                                      : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
@@ -185,7 +185,7 @@ class _PinScreenState extends State<PinScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.05,
                                   fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF1B5E20),
+                                  color: const Color(0xFF4CAF50), // Light green
                                 ),
                                 decoration: const InputDecoration(
                                   counterText: '',
@@ -210,8 +210,8 @@ class _PinScreenState extends State<PinScreen> {
                             onPressed: _pin.length == 6 ? _verifyPin : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _pin.length == 6
-                                  ? const Color(0xFF1B5E20)
-                                  : const Color(0xFF1B5E20).withOpacity(0.3),
+                                  ? const Color(0xFF4CAF50) // Light green
+                                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
                               foregroundColor: Colors.white,
                               elevation: _pin.length == 6 ? 8 : 0,
                               shadowColor: Colors.black.withOpacity(0.3),
@@ -239,7 +239,7 @@ class _PinScreenState extends State<PinScreen> {
                             ScaffoldMessenger.of(context).showSnackBar(
                               const SnackBar(
                                 content: Text('Forgot PIN functionality coming soon'),
-                                backgroundColor: Color(0xFF1B5E20),
+                                backgroundColor: Color(0xFF4CAF50), // Light green
                               ),
                             );
                           },
@@ -248,7 +248,7 @@ class _PinScreenState extends State<PinScreen> {
                             style: GoogleFonts.poppins(
                               fontSize: screenWidth * 0.035,
                               fontWeight: FontWeight.w500,
-                              color: const Color(0xFF1B5E20),
+                              color: const Color(0xFF4CAF50), // Light green
                               decoration: TextDecoration.underline,
                             ),
                           ),

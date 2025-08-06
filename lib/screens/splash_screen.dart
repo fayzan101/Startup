@@ -64,14 +64,14 @@ class _SplashScreenState extends State<SplashScreen>
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor:Color(0xFF1B5E20),
+        statusBarColor: Color(0xFF4CAF50), // Light green
         statusBarIconBrightness: Brightness.light,
         statusBarBrightness: Brightness.dark, // For iOS
-        systemNavigationBarColor: Color(0xFF1B5E20),
+        systemNavigationBarColor: Color(0xFF4CAF50), // Light green
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
-        backgroundColor: const Color(0xFF1B5E20), // Dark green background
+        backgroundColor:Colors.white, // Light green background
         body: Container(
           width: double.infinity,
           height: double.infinity,
@@ -80,7 +80,7 @@ class _SplashScreenState extends State<SplashScreen>
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(0xFF1B5E20), // Dark green
+                Color(0xFF4CAF50), // Light green
                 Color(0xFF0D4A0D), // Even darker green
               ],
             ),
@@ -98,36 +98,19 @@ class _SplashScreenState extends State<SplashScreen>
                       children: [
                         // Logo Container
                         Container(
-                          width: screenWidth * 0.3, // 30% of screen width
-                          height: screenWidth * 0.3, // Square aspect ratio
+                          width: screenWidth * 0.5, // 50% of screen width (increased from 40%)
+                          height: screenWidth * 0.5, // Square aspect ratio
                           decoration: BoxDecoration(
                             color: Colors.white,
                             borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 20,
-                                offset: const Offset(0, 10),
-                              ),
-                            ],
                           ),
                           child: Center(
-                            child: Icon(
-                              Icons.eco,
-                              size: screenWidth * 0.15, // 15% of screen width
-                              color: const Color(0xFF4CAF50), // Green color
+                            child: Image.asset(
+                              'assets/logo.png',
+                              width: screenWidth * 0.4, // 40% of screen width (increased from 30%)
+                              height: screenWidth * 0.4, // 40% of screen width (increased from 30%)
+                              fit: BoxFit.contain,
                             ),
-                          ),
-                        ),
-                        SizedBox(height: screenHeight * 0.05), // 5% of screen height
-                        // App Name
-                        Text(
-                          'HOJAEGA',
-                          style: GoogleFonts.bubblegumSans(
-                            fontSize: screenWidth * 0.12, // 12% of screen width (bigger)
-                            fontWeight: FontWeight.bold,
-                            color: Colors.white, // White text
-                            letterSpacing: 3.0,
                           ),
                         ),
                         SizedBox(height: screenHeight * 0.1), // 10% of screen height

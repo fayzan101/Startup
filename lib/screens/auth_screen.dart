@@ -19,7 +19,7 @@ class _AuthScreenState extends State<AuthScreen> {
 
          return AnnotatedRegion<SystemUiOverlayStyle>(
        value: const SystemUiOverlayStyle(
-                   statusBarColor: Color(0xFF1B5E20),
+                   statusBarColor: Color(0xFF4CAF50), // Light green
          statusBarIconBrightness: Brightness.light,
          statusBarBrightness: Brightness.dark, // For iOS
          systemNavigationBarColor: Colors.white,
@@ -41,47 +41,30 @@ class _AuthScreenState extends State<AuthScreen> {
                      child: Column(
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
-                        // Logo Container
-                        Container(
-                          width: screenWidth * 0.25,
-                          height: screenWidth * 0.25,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 20,
-                                offset: const Offset(0, 10),
+                                                                                                                                                                                                       // Logo Container
+                           Container(
+                             width: screenWidth * 0.45, // 45% of screen width (increased from 35%)
+                             height: screenWidth * 0.45, // 45% of screen width (increased from 35%)
+                             decoration: BoxDecoration(
+                               color: Colors.white,
+                               borderRadius: BorderRadius.circular(20),
+                             ),
+                            child: Center(
+                              child: Image.asset(
+                                'assets/logo.png',
+                                width: screenWidth * 0.35, // 35% of screen width (increased from 25%)
+                                height: screenWidth * 0.35, // 35% of screen width (increased from 25%)
+                                fit: BoxFit.contain,
                               ),
-                            ],
-                          ),
-                          child: Center(
-                            child: Icon(
-                              Icons.eco,
-                              size: screenWidth * 0.12,
-                              color: const Color(0xFF4CAF50),
                             ),
                           ),
-                        ),
-                        SizedBox(height: screenHeight * 0.03),
-                                                 // App Name
-                         Text(
-                           'HOJAEGA',
-                           style: GoogleFonts.bubblegumSans(
-                             fontSize: screenWidth * 0.08,
-                             fontWeight: FontWeight.bold,
-                                                           color: const Color(0xFF1B5E20),
-                             letterSpacing: 2.0,
-                           ),
-                         ),
                          SizedBox(height: screenHeight * 0.02),
                          Text(
                            'Welcome to your green journey',
                            style: GoogleFonts.poppins(
                              fontSize: screenWidth * 0.035,
                              fontWeight: FontWeight.w400,
-                                                           color: const Color(0xFF1B5E20).withOpacity(0.8),
+                                                           color: const Color(0xFF4CAF50).withOpacity(0.8), // Light green
                              letterSpacing: 0.5,
                            ),
                            textAlign: TextAlign.center,
@@ -100,7 +83,7 @@ class _AuthScreenState extends State<AuthScreen> {
                                  );
                                },
                               style: ElevatedButton.styleFrom(
-                                                                 backgroundColor: const Color(0xFF1B5E20),
+                                                                 backgroundColor: const Color(0xFF4CAF50), // Light green
                                 foregroundColor: Colors.white,
                                 elevation: 8,
                                 shadowColor: Colors.black.withOpacity(0.3),
@@ -132,10 +115,10 @@ class _AuthScreenState extends State<AuthScreen> {
                                },
                               style: ElevatedButton.styleFrom(
                                 backgroundColor: Colors.transparent,
-                                                                 foregroundColor: const Color(0xFF1B5E20),
+                                                                 foregroundColor: const Color(0xFF4CAF50), // Light green
                                 elevation: 0,
                                 side: const BorderSide(
-                                                                     color: Color(0xFF1B5E20),
+                                                                     color: Color(0xFF4CAF50), // Light green
                                   width: 2,
                                 ),
                                 shape: RoundedRectangleBorder(
