@@ -58,7 +58,7 @@ class _AuthScreenState extends State<AuthScreen> {
                               ),
                             ),
                           ),
-                         SizedBox(height: screenHeight * 0.02),
+                         SizedBox(height: screenHeight * 0.01),
                          Text(
                            'Welcome to your green journey',
                            style: GoogleFonts.poppins(
@@ -69,7 +69,7 @@ class _AuthScreenState extends State<AuthScreen> {
                            ),
                            textAlign: TextAlign.center,
                          ),
-                         SizedBox(height: screenHeight * 0.04),
+                         SizedBox(height: screenHeight * 0.02),
                                                    // Sign In Button
                           Container(
                             width: double.infinity,

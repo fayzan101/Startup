@@ -64,26 +64,19 @@ class _SplashScreenState extends State<SplashScreen>
 
     return AnnotatedRegion<SystemUiOverlayStyle>(
       value: const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF4CAF50), // Light green
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark, // For iOS
-        systemNavigationBarColor: Color(0xFF4CAF50), // Light green
+        statusBarColor: Colors.white,
+        statusBarIconBrightness: Brightness.dark,
+        statusBarBrightness: Brightness.light, // For iOS
+        systemNavigationBarColor: Colors.white,
         systemNavigationBarIconBrightness: Brightness.dark,
       ),
       child: Scaffold(
-        backgroundColor:Colors.white, // Light green background
+        backgroundColor: Colors.white,
         body: Container(
           width: double.infinity,
           height: double.infinity,
           decoration: const BoxDecoration(
-            gradient: LinearGradient(
-              begin: Alignment.topCenter,
-              end: Alignment.bottomCenter,
-              colors: [
-                Color(0xFF4CAF50), // Light green
-                Color(0xFF0D4A0D), // Even darker green
-              ],
-            ),
+            color: Colors.white,
           ),
           child: AnimatedBuilder(
             animation: _animationController,
@@ -96,22 +89,12 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Logo Container
-                        Container(
-                          width: screenWidth * 0.5, // 50% of screen width (increased from 40%)
-                          height: screenWidth * 0.5, // Square aspect ratio
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius: BorderRadius.circular(20),
-                          ),
-                          child: Center(
-                            child: Image.asset(
-                              'assets/logo.png',
-                              width: screenWidth * 0.4, // 40% of screen width (increased from 30%)
-                              height: screenWidth * 0.4, // 40% of screen width (increased from 30%)
-                              fit: BoxFit.contain,
-                            ),
-                          ),
+                        // Logo - directly using the image without container background
+                        Image.asset(
+                          'assets/logo.png',
+                          width: screenWidth * 0.6, // 60% of screen width
+                          height: screenWidth * 0.6, // 60% of screen width
+                          fit: BoxFit.contain,
                         ),
                         SizedBox(height: screenHeight * 0.1), // 10% of screen height
                       ],

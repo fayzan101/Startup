@@ -122,7 +122,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             child: Icon(
                               Icons.work,
                               size: screenWidth * 0.1,
-                              color: const Color(0xFF1B5E20),
+                              color: const Color(0xFF4CAF50), // Light green
                             ),
                           ),
                         ),
@@ -135,7 +135,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.06,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xFF1B5E20),
+                            color: Color(0xFF4CAF50)
                           ),
                         ),
                         
@@ -147,7 +147,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xFF1B5E20).withOpacity(0.7),
+                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -215,7 +215,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                           onChanged: (value) => _validateForm(),
                         ),
                         
-                        SizedBox(height: screenHeight * 0.08),
+                        SizedBox(height: screenHeight * 0.04),
                         
                         // Submit Button
                         Container(
@@ -225,8 +225,8 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             onPressed: _isFormValid ? _submitDetails : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _isFormValid
-                                  ? const Color(0xFF1B5E20)
-                                  : const Color(0xFF1B5E20).withOpacity(0.3),
+                                  ? const Color(0xFF4CAF50) // Light green
+                                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
                               foregroundColor: Colors.white,
                               elevation: _isFormValid ? 8 : 0,
                               shadowColor: Colors.black.withOpacity(0.3),
@@ -251,10 +251,10 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                         Container(
                           padding: EdgeInsets.all(screenWidth * 0.04),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF1B5E20).withOpacity(0.05),
+                            color: const Color(0xFF4CAF50).withOpacity(0.05), // Light green
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: const Color(0xFF1B5E20).withOpacity(0.1),
+                              color: const Color(0xFF4CAF50).withOpacity(0.1), // Light green
                               width: 1,
                             ),
                           ),
@@ -266,7 +266,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.035,
                                   fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF1B5E20),
+                                  color: const Color(0xFF4CAF50), // Light green
                                 ),
                               ),
                               SizedBox(height: screenHeight * 0.02),
@@ -322,8 +322,8 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
           decoration: BoxDecoration(
             border: Border.all(
               color: focusNode.hasFocus
-                  ? const Color(0xFF1B5E20)
-                  : const Color(0xFF1B5E20).withOpacity(0.3),
+                  ? const Color(0xFF4CAF50) // Light green
+                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
               width: 2,
             ),
             borderRadius: BorderRadius.circular(15),
@@ -336,20 +336,20 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
             style: GoogleFonts.poppins(
               fontSize: screenWidth * 0.04,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF1B5E20),
+              color: const Color(0xFF4CAF50), // Light green
             ),
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: GoogleFonts.poppins(
                 fontSize: screenWidth * 0.04,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xFF1B5E20).withOpacity(0.5),
+                color: const Color(0xFF4CAF50).withOpacity(0.5), // Light green
               ),
               border: InputBorder.none,
-              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
+              contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               prefixIcon: Icon(
                 icon,
-                color: const Color(0xFF1B5E20).withOpacity(0.7),
+                color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                 size: screenWidth * 0.05,
               ),
             ),
@@ -367,7 +367,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
         Icon(
           icon,
           size: screenWidth * 0.035,
-          color: const Color(0xFF1B5E20).withOpacity(0.7),
+          color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
         ),
         SizedBox(width: screenWidth * 0.02),
         Expanded(
@@ -376,7 +376,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
             style: GoogleFonts.poppins(
               fontSize: screenWidth * 0.03,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF1B5E20).withOpacity(0.8),
+              color: const Color(0xFF4CAF50).withOpacity(0.8), // Light green
             ),
           ),
         ),

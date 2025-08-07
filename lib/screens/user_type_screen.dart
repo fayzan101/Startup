@@ -73,7 +73,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                             child: Icon(
                               Icons.person_add,
                               size: screenWidth * 0.1,
-                              color: const Color(0xFF1B5E20),
+                              color: const Color(0xFF4CAF50), // Light green
                             ),
                           ),
                         ),
@@ -86,7 +86,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.06,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xFF1B5E20),
+                            color: const Color(0xFF4CAF50), // Light green
                           ),
                         ),
                         
@@ -98,7 +98,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xFF1B5E20).withOpacity(0.7),
+                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                           ),
                           textAlign: TextAlign.center,
                         ),
@@ -122,7 +122,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                               color: Colors.white,
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: const Color(0xFF1B5E20).withOpacity(0.3),
+                                color: const Color(0xFF4CAF50).withOpacity(0.3), // Light green
                                 width: 2,
                               ),
                               boxShadow: [
@@ -139,13 +139,13 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                   width: screenWidth * 0.15,
                                   height: screenWidth * 0.15,
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF1B5E20).withOpacity(0.1),
+                                    color: const Color(0xFF4CAF50).withOpacity(0.1), // Light green
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Icon(
                                     Icons.work,
                                     size: screenWidth * 0.08,
-                                    color: const Color(0xFF1B5E20),
+                                    color: const Color(0xFF4CAF50), // Light green
                                   ),
                                 ),
                                 SizedBox(width: screenWidth * 0.04),
@@ -158,7 +158,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                         style: GoogleFonts.poppins(
                                           fontSize: screenWidth * 0.045,
                                           fontWeight: FontWeight.w600,
-                                          color: const Color(0xFF1B5E20),
+                                          color: const Color(0xFF4CAF50), // Light green
                                         ),
                                       ),
                                       SizedBox(height: screenHeight * 0.01),

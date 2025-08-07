@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/custom_snackbar.dart';
+import 'service_workers_screen.dart';
 
 class ExplorerDashboardScreen extends StatefulWidget {
   final String userName;
@@ -35,7 +36,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
       'name': 'Plumber',
       'icon': Icons.plumbing,
       'description': 'Find skilled plumbers for all your plumbing needs',
-      'color': Color(0xFF2196F3),
+      'color': Colors.black,
     },
     {
       'name': 'Electrician',
@@ -82,28 +83,40 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
   ];
 
   void _onServiceCardTap(String serviceName) {
-    customSnackBar('Service Selected', 'You selected $serviceName in $_selectedCity', context: context);
-    // TODO: Navigate to service-specific worker list
-    // Navigator.push(context, MaterialPageRoute(builder: (context) => WorkerListScreen(service: serviceName, city: _selectedCity)));
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ServiceWorkersScreen(
+          serviceName: serviceName,
+          city: _selectedCity,
+        ),
+      ),
+    );
   }
 
   void _showCityDialog() {
     final TextEditingController searchController = TextEditingController();
     List<String> filteredCities = List.from(_cities);
     
-    showDialog(
+    showModalBottomSheet(
       context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (context, setState) {
-                         return Dialog(
-               shape: RoundedRectangleBorder(
-                 borderRadius: BorderRadius.circular(20),
-               ),
-               child: Container(
-                 width: MediaQuery.of(context).size.width * 0.9,
-                 height: MediaQuery.of(context).size.height * 0.6,
-                 padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
+            return Container(
+              height: MediaQuery.of(context).size.height * 0.7,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20),
+                  topRight: Radius.circular(20),
+                ),
+              ),
+              child: Container(
+                width: double.infinity,
+                padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
                  child: Column(
                    children: [
                      // Title
@@ -112,7 +125,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                        style: GoogleFonts.poppins(
                          fontSize: MediaQuery.of(context).size.width * 0.05,
                          fontWeight: FontWeight.w600,
-                         color: const Color(0xFF1B5E20),
+                         color: const Color(0xFF4CAF50), // Light green
                        ),
                      ),
                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
@@ -121,7 +134,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                      Container(
                        decoration: BoxDecoration(
                          border: Border.all(
-                           color: const Color(0xFF1B5E20).withOpacity(0.3),
+                           color: const Color(0xFF4CAF50).withOpacity(0.3), // Light green
                            width: 2,
                          ),
                          borderRadius: BorderRadius.circular(15),
@@ -131,20 +144,20 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                          style: GoogleFonts.poppins(
                            fontSize: MediaQuery.of(context).size.width * 0.04,
                            fontWeight: FontWeight.w500,
-                           color: const Color(0xFF1B5E20),
+                           color: const Color(0xFF4CAF50), // Light green
                          ),
                          decoration: InputDecoration(
                            hintText: 'Search cities...',
                            hintStyle: GoogleFonts.poppins(
                              fontSize: MediaQuery.of(context).size.width * 0.04,
                              fontWeight: FontWeight.w400,
-                             color: const Color(0xFF1B5E20).withOpacity(0.5),
+                             color: const Color(0xFF4CAF50).withOpacity(0.5), // Light green
                            ),
                            border: InputBorder.none,
                            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                            prefixIcon: Icon(
                              Icons.search,
-                             color: const Color(0xFF1B5E20).withOpacity(0.7),
+                             color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                              size: MediaQuery.of(context).size.width * 0.05,
                            ),
                          ),
@@ -169,7 +182,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                    Icon(
                                      Icons.search_off,
                                      size: MediaQuery.of(context).size.width * 0.1,
-                                     color: const Color(0xFF1B5E20).withOpacity(0.5),
+                                     color: const Color(0xFF4CAF50).withOpacity(0.5), // Light green
                                    ),
                                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                                    Text(
@@ -177,7 +190,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                      style: GoogleFonts.poppins(
                                        fontSize: MediaQuery.of(context).size.width * 0.04,
                                        fontWeight: FontWeight.w600,
-                                       color: const Color(0xFF1B5E20),
+                                       color: const Color(0xFF4CAF50), // Light green
                                      ),
                                    ),
                                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -186,7 +199,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                      style: GoogleFonts.poppins(
                                        fontSize: MediaQuery.of(context).size.width * 0.035,
                                        fontWeight: FontWeight.w400,
-                                       color: const Color(0xFF1B5E20).withOpacity(0.7),
+                                       color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                                      ),
                                    ),
                                  ],
@@ -213,23 +226,23 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                       ),
                                       decoration: BoxDecoration(
                                         color: isSelected 
-                                            ? const Color(0xFF1B5E20).withOpacity(0.1)
+                                            ? const Color(0xFF4CAF50).withOpacity(0.1) // Light green
                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
-                                        border: Border.all(
-                                          color: isSelected 
-                                              ? const Color(0xFF1B5E20)
-                                              : const Color(0xFF1B5E20).withOpacity(0.2),
-                                          width: isSelected ? 2 : 1,
-                                        ),
+                                                                                  border: Border.all(
+                                            color: isSelected 
+                                                ? const Color(0xFF4CAF50) // Light green
+                                                : const Color(0xFF4CAF50).withOpacity(0.2), // Light green
+                                            width: isSelected ? 2 : 1,
+                                          ),
                                       ),
                                       child: Row(
                                         children: [
                                           Icon(
                                             Icons.location_on,
                                             color: isSelected 
-                                                ? const Color(0xFF1B5E20)
-                                                : const Color(0xFF1B5E20).withOpacity(0.7),
+                                                ? const Color(0xFF4CAF50) // Light green
+                                                : const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                                             size: MediaQuery.of(context).size.width * 0.05,
                                           ),
                                           SizedBox(width: MediaQuery.of(context).size.width * 0.03),
@@ -240,15 +253,15 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                                 fontSize: MediaQuery.of(context).size.width * 0.04,
                                                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
                                                 color: isSelected 
-                                                    ? const Color(0xFF1B5E20)
-                                                    : const Color(0xFF1B5E20).withOpacity(0.8),
+                                                    ? const Color(0xFF4CAF50) // Light green
+                                                    : const Color(0xFF4CAF50).withOpacity(0.8), // Light green
                                               ),
                                             ),
                                           ),
                                           if (isSelected)
                                             Icon(
                                               Icons.check_circle,
-                                              color: const Color(0xFF1B5E20),
+                                              color: const Color(0xFF4CAF50), // Light green
                                               size: MediaQuery.of(context).size.width * 0.05,
                                             ),
                                         ],
@@ -268,7 +281,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                          style: GoogleFonts.poppins(
                            fontSize: MediaQuery.of(context).size.width * 0.04,
                            fontWeight: FontWeight.w500,
-                           color: const Color(0xFF1B5E20).withOpacity(0.7),
+                           color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                          ),
                        ),
                      ),
@@ -345,7 +358,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                     padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenHeight * 0.015),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: const Color(0xFF1B5E20).withOpacity(0.3),
+                        color: const Color(0xFF4CAF50).withOpacity(0.3), // Light green
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(15),
@@ -354,7 +367,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                       children: [
                         Icon(
                           Icons.location_on,
-                          color: const Color(0xFF1B5E20).withOpacity(0.7),
+                          color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                           size: screenWidth * 0.05,
                         ),
                         SizedBox(width: screenWidth * 0.02),
@@ -364,13 +377,13 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                             style: GoogleFonts.poppins(
                               fontSize: screenWidth * 0.04,
                               fontWeight: FontWeight.w500,
-                              color: const Color(0xFF1B5E20),
+                              color: const Color(0xFF4CAF50), // Light green
                             ),
                           ),
                         ),
                         Icon(
                           Icons.keyboard_arrow_down,
-                          color: const Color(0xFF1B5E20),
+                          color: const Color(0xFF4CAF50), // Light green
                           size: screenWidth * 0.06,
                         ),
                       ],
@@ -433,7 +446,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.04,
                                   fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF1B5E20),
+                                  color: const Color(0xFF4CAF50), // Light green
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -445,7 +458,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                   style: GoogleFonts.poppins(
                                     fontSize: screenWidth * 0.025,
                                     fontWeight: FontWeight.w400,
-                                    color: const Color(0xFF1B5E20).withOpacity(0.7),
+                                    color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                                   ),
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
@@ -480,7 +493,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                     right: 20,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF1B5E20),
+                    color: const Color(0xFF4CAF50), // Light green
                     boxShadow: [
                       BoxShadow(
                         color: Colors.black.withOpacity(0.1),
@@ -511,7 +524,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                             child: Icon(
                               Icons.person,
                               size: 30,
-                              color: const Color(0xFF1B5E20),
+                              color: const Color(0xFF4CAF50), // Light green
                             ),
                           ),
                           SizedBox(width: 15),
@@ -562,13 +575,44 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         isSelected: true,
                       ),
                       
-                      // My Bookings
+                      // Language
                       _buildMenuItem(
-                        icon: Icons.book_online,
-                        title: 'My Bookings',
+                        icon: Icons.language,
+                        title: 'Language',
                         onTap: () {
                           Navigator.pop(context);
-                          customSnackBar('My Bookings', 'My Bookings feature coming soon!', context: context);
+                          showDialog(
+                            context: context,
+                            builder: (context) {
+                              return AlertDialog(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                title: Text('Select Language', style: GoogleFonts.poppins(fontWeight: FontWeight.w600)),
+                                content: Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    ListTile(
+                                      leading: Icon(Icons.language, color: Color(0xFF4CAF50)),
+                                      title: Text('English', style: GoogleFonts.poppins()),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                        // TODO: Set language to English
+                                      },
+                                    ),
+                                    ListTile(
+                                      leading: Icon(Icons.language, color: Color(0xFF4CAF50)),
+                                      title: Text('Urdu', style: GoogleFonts.poppins()),
+                                      onTap: () {
+                                        Navigator.pop(context);
+                                        // TODO: Set language to Urdu
+                                      },
+                                    ),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
                         },
                       ),
                       
@@ -684,7 +728,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
           color: isLogout 
               ? Colors.red 
               : isSelected 
-                  ? const Color(0xFF1B5E20)
+                  ? const Color(0xFF4CAF50) // Light green
                   : Colors.grey[600],
           size: 24,
         ),
@@ -694,7 +738,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
             color: isLogout 
                 ? Colors.red 
                 : isSelected 
-                    ? const Color(0xFF1B5E20)
+                    ? const Color(0xFF4CAF50) // Light green
                     : Colors.grey[800],
             fontSize: 16,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
@@ -703,7 +747,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
         trailing: isSelected 
             ? Icon(
                 Icons.arrow_forward_ios,
-                color: const Color(0xFF1B5E20),
+                color: const Color(0xFF4CAF50), // Light green
                 size: 16,
               )
             : null,
@@ -712,64 +756,125 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
           borderRadius: BorderRadius.circular(10),
         ),
         tileColor: isSelected 
-            ? const Color(0xFF1B5E20).withOpacity(0.1)
+            ? const Color(0xFF4CAF50).withOpacity(0.1) // Light green
             : Colors.transparent,
       ),
     );
   }
   
   void _showLogoutDialog() {
-    showDialog(
+    showModalBottomSheet(
       context: context,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      backgroundColor: Colors.white,
+      isScrollControlled: true,
       builder: (BuildContext context) {
-        return AlertDialog(
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
+        final screenHeight = MediaQuery.of(context).size.height;
+        return Padding(
+          padding: EdgeInsets.only(
+            left: 24,
+            right: 24,
+            top: 24,
+            bottom: MediaQuery.of(context).viewInsets.bottom + 24,
           ),
-          title: Text(
-            'Logout',
-            style: GoogleFonts.poppins(
-              fontWeight: FontWeight.w600,
-              color: const Color(0xFF1B5E20),
+          child: SizedBox(
+            height: screenHeight * 0.35,
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Center(
+                  child: Container(
+                    width: 40,
+                    height: 4,
+                    margin: const EdgeInsets.only(bottom: 16),
+                    decoration: BoxDecoration(
+                      color: Colors.grey[300],
+                      borderRadius: BorderRadius.circular(2),
+                    ),
+                  ),
+                ),
+                Center(
+                  child: Icon(
+                    Icons.logout,
+                    color: const Color(0xFF4CAF50),
+                    size: 80,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                Center(
+                  child: Text(
+                    'Are you sure',
+                    style: GoogleFonts.poppins(
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18,
+                      color: const Color(0xFF4CAF50), // Light green
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 8),
+                Center(
+                  child: Text(
+                    'You want to logout?',
+                    style: GoogleFonts.poppins(
+                      color: Colors.grey[700],
+                      fontSize: 16,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+                const Spacer(),
+                Row(
+                  children: [
+                    Expanded(
+                      child: OutlinedButton(
+                        onPressed: () => Navigator.pop(context),
+                        style: OutlinedButton.styleFrom(
+                          side: BorderSide(color: const Color(0xFF4CAF50)),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        ),
+                        child: Text(
+                          'Cancel',
+                          style: GoogleFonts.poppins(
+                            color: const Color(0xFF4CAF50),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: ElevatedButton(
+                        onPressed: () {
+                          Navigator.pop(context); // Close sheet
+                          Navigator.pushReplacementNamed(context, '/'); // Navigate to splash screen
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFF4CAF50),
+                          foregroundColor: Colors.white,
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          padding: const EdgeInsets.symmetric(vertical: 14),
+                        ),
+                        child: Text(
+                          'Yes',
+                          style: GoogleFonts.poppins(
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ],
             ),
           ),
-          content: Text(
-            'Are you sure you want to logout?',
-            style: GoogleFonts.poppins(
-              color: Colors.grey[700],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: Text(
-                'Cancel',
-                style: GoogleFonts.poppins(
-                  color: Colors.grey[600],
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-            ElevatedButton(
-              onPressed: () {
-                Navigator.pop(context); // Close dialog
-                Navigator.pushReplacementNamed(context, '/'); // Navigate to splash screen
-              },
-              style: ElevatedButton.styleFrom(
-                backgroundColor: Colors.red,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ),
-              ),
-              child: Text(
-                'Logout',
-                style: GoogleFonts.poppins(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ),
-          ],
         );
       },
     );

@@ -215,7 +215,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.04,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xFF1B5E20),
+                            color: const Color(0xFF4CAF50), // Light green
                           ),
                         ),
                         
@@ -232,8 +232,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: _focusNodes[index].hasFocus
-                                      ? const Color(0xFF1B5E20)
-                                      : const Color(0xFF1B5E20).withOpacity(0.3),
+                                      ? const Color(0xFF4CAF50) // Light green
+                                      : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
@@ -247,7 +247,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.05,
                                   fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF1B5E20),
+                                  color: const Color(0xFF4CAF50), // Light green
                                 ),
                                 decoration: const InputDecoration(
                                   counterText: '',
@@ -262,7 +262,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           ),
                         ),
                         
-                        SizedBox(height: screenHeight * 0.08),
+                        SizedBox(height: screenHeight * 0.04),
                         
                         // Verify Button
                         Container(
@@ -272,8 +272,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             onPressed: _otp.length == 6 ? _verifyOtp : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _otp.length == 6
-                                  ? const Color(0xFF1B5E20)
-                                  : const Color(0xFF1B5E20).withOpacity(0.3),
+                                  ? const Color(0xFF4CAF50) // Light green
+                                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
                               foregroundColor: Colors.white,
                               elevation: _otp.length == 6 ? 8 : 0,
                               shadowColor: Colors.black.withOpacity(0.3),
@@ -300,7 +300,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w500,
-                            color: const Color(0xFF1B5E20).withOpacity(0.7),
+                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
                           ),
                         ),
                         
@@ -314,7 +314,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             child: ElevatedButton(
                               onPressed: _resendOtp,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF1B5E20),
+                                backgroundColor: const Color(0xFF4CAF50), // Light green
                                 foregroundColor: Colors.white,
                                 elevation: 8,
                                 shadowColor: Colors.black.withOpacity(0.3),

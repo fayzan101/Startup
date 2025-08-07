@@ -226,7 +226,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ],
                         ),
                         
-                        SizedBox(height: screenHeight * 0.08),
+                        SizedBox(height: screenHeight * 0.04),
                         
                         // Send OTP Button
                         Container(
