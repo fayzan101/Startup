@@ -1,6 +1,7 @@
 # startup
 
-A new Flutter project.
+Startup application(Hojaega).
+Founder Kamran Basheer.
 
 ## Getting Started
 
