@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/custom_snackbar.dart';
+import '../services/theme_service.dart';
+import '../widgets/connectivity_wrapper.dart';
 
 class ServiceWorkersScreen extends StatefulWidget {
   final String serviceName;
@@ -72,7 +74,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
       'Calling $workerName at $contact',
       context: context,
     );
-    // TODO: Implement actual calling functionality
+    
   }
 
   @override
@@ -80,21 +82,27 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF4CAF50), // Light green
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark, // For iOS
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.white,
+    final primary = Theme.of(context).colorScheme.primary;
+    return ConnectivityWrapper(
+      showOfflineUI: true,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarDividerColor: Colors.transparent,
+        ),
+        child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: false,
+          backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF4CAF50), // Light green
+          backgroundColor: primary, 
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.pop(context),
           ),
           title: Column(
@@ -102,7 +110,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
               Text(
                 widget.serviceName,
                 style: GoogleFonts.poppins(
-                  color: Colors.white,
+                  color: Theme.of(context).colorScheme.onPrimary,
                   fontWeight: FontWeight.w600,
                   fontSize: screenWidth * 0.045,
                 ),
@@ -110,7 +118,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
               Text(
                 widget.city,
                 style: GoogleFonts.poppins(
-                  color: Colors.white.withOpacity(0.8),
+                  color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
                   fontWeight: FontWeight.w400,
                   fontSize: screenWidth * 0.035,
                 ),
@@ -122,15 +130,15 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
         body: SafeArea(
           child: Column(
             children: [
-              // Header Info
+              
               Container(
                 width: double.infinity,
                 padding: EdgeInsets.all(screenWidth * 0.04),
                 decoration: BoxDecoration(
-                  color: const Color(0xFF4CAF50).withOpacity(0.05),
+                  color: primary.withOpacity(0.05),
                   border: Border(
                     bottom: BorderSide(
-                      color: const Color(0xFF4CAF50).withOpacity(0.1),
+                      color: primary.withOpacity(0.1),
                       width: 1,
                     ),
                   ),
@@ -139,7 +147,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                   children: [
                     Icon(
                       Icons.people,
-                      color: const Color(0xFF4CAF50),
+                      color: primary,
                       size: screenWidth * 0.06,
                     ),
                     SizedBox(width: screenWidth * 0.03),
@@ -152,7 +160,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                             style: GoogleFonts.poppins(
                               fontSize: screenWidth * 0.04,
                               fontWeight: FontWeight.w600,
-                              color: const Color(0xFF4CAF50),
+                              color: primary,
                             ),
                           ),
                           Text(
@@ -160,7 +168,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                             style: GoogleFonts.poppins(
                               fontSize: screenWidth * 0.035,
                               fontWeight: FontWeight.w400,
-                              color: const Color(0xFF4CAF50).withOpacity(0.7),
+                              color: primary.withOpacity(0.7),
                             ),
                           ),
                         ],
@@ -170,7 +178,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                 ),
               ),
               
-              // Workers List
+              
               Expanded(
                 child: ListView.builder(
                   padding: EdgeInsets.all(screenWidth * 0.04),
@@ -178,18 +186,18 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                   itemBuilder: (context, index) {
                     final worker = _workers[index];
                     
-                    return Container(
+                      return Container(
                       margin: EdgeInsets.only(bottom: screenHeight * 0.02),
                       decoration: BoxDecoration(
-                        color: Colors.white,
+                        color: Theme.of(context).colorScheme.surface,
                         borderRadius: BorderRadius.circular(15),
                         border: Border.all(
-                          color: const Color(0xFF4CAF50).withOpacity(0.2),
+                          color: primary.withOpacity(0.2),
                           width: 1,
                         ),
                         boxShadow: [
                           BoxShadow(
-                            color: Colors.black.withOpacity(0.05),
+                              color: Theme.of(context).shadowColor.withOpacity(0.05),
                             blurRadius: 10,
                             offset: const Offset(0, 2),
                           ),
@@ -200,14 +208,14 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Worker Header
+                            
                             Row(
                               children: [
                                 Container(
                                   width: screenWidth * 0.15,
                                   height: screenWidth * 0.15,
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF4CAF50).withOpacity(0.1),
+                                  color: primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(10),
                                   ),
                                   child: Center(
@@ -227,7 +235,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                                         style: GoogleFonts.poppins(
                                           fontSize: screenWidth * 0.045,
                                           fontWeight: FontWeight.w600,
-                                          color: const Color(0xFF4CAF50),
+                                        color: primary,
                                         ),
                                       ),
                                       SizedBox(height: screenHeight * 0.005),
@@ -266,12 +274,12 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                             
                             SizedBox(height: screenHeight * 0.02),
                             
-                            // Worker Details
+                            
                             Row(
                               children: [
                                 Icon(
                                   Icons.location_on,
-                                  color: const Color(0xFF4CAF50).withOpacity(0.7),
+                                  color: primary.withOpacity(0.7),
                                   size: screenWidth * 0.04,
                                 ),
                                 SizedBox(width: screenWidth * 0.02),
@@ -292,7 +300,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                               children: [
                                 Icon(
                                   Icons.work,
-                                  color: const Color(0xFF4CAF50).withOpacity(0.7),
+                                  color: primary.withOpacity(0.7),
                                   size: screenWidth * 0.04,
                                 ),
                                 SizedBox(width: screenWidth * 0.02),
@@ -309,14 +317,14 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                             
                             SizedBox(height: screenHeight * 0.02),
                             
-                            // Contact Button
+                            
                             Container(
                               width: double.infinity,
-                              child: ElevatedButton.icon(
+                            child: ElevatedButton.icon(
                                 onPressed: () => _contactWorker(worker['name'], worker['contact']),
                                 icon: Icon(
                                   Icons.phone,
-                                  color: Colors.white,
+                                color: Theme.of(context).colorScheme.onPrimary,
                                   size: screenWidth * 0.04,
                                 ),
                                 label: Text(
@@ -324,12 +332,12 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
                                   style: GoogleFonts.poppins(
                                     fontSize: screenWidth * 0.04,
                                     fontWeight: FontWeight.w600,
-                                    color: Colors.white,
+                                  color: Theme.of(context).colorScheme.onPrimary,
                                   ),
                                 ),
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: const Color(0xFF4CAF50),
-                                  foregroundColor: Colors.white,
+                                  backgroundColor: primary,
+                                  foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                   elevation: 2,
                                   shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
@@ -349,6 +357,7 @@ class _ServiceWorkersScreenState extends State<ServiceWorkersScreen> {
           ),
         ),
       ),
+    )
     );
   }
 } 

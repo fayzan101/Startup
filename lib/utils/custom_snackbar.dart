@@ -27,11 +27,9 @@ void customSnackBar(String titleTxt, String msg, {BuildContext? context}) {
             ),
           ],
         ),
-        backgroundColor: titleTxt == 'Success' 
-            ? const Color(0xFF4CAF50) // Green for success
-            : titleTxt == 'Error'
-                ? const Color(0xFFF44336) // Red for error
-                : const Color(0xFF4CAF50), // Default light green
+        backgroundColor: titleTxt == 'Error'
+            ? const Color(0xFFF44336)
+            : Theme.of(context).colorScheme.primary,
         duration: const Duration(seconds: 3),
         behavior: SnackBarBehavior.floating,
         shape: RoundedRectangleBorder(

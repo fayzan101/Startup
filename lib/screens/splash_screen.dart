@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter/services.dart';
 import 'auth_screen.dart';
+import '../widgets/connectivity_wrapper.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -42,7 +43,7 @@ class _SplashScreenState extends State<SplashScreen>
 
     _animationController.forward();
 
-    // Navigate to auth screen after 3 seconds
+    
     Future.delayed(const Duration(seconds: 3), () {
       Navigator.pushReplacement(
         context, 
@@ -62,21 +63,26 @@ class _SplashScreenState extends State<SplashScreen>
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Colors.white,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.light, // For iOS
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.dark,
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.white,
+    return ConnectivityWrapper(
+      showOfflineUI: true,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarDividerColor: Colors.transparent,
+        ),
+        child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: false,
+          backgroundColor: Colors.white,
         body: Container(
           width: double.infinity,
           height: double.infinity,
-          decoration: const BoxDecoration(
-            color: Colors.white,
+          decoration: BoxDecoration(
+            color: Theme.of(context).scaffoldBackgroundColor,
           ),
           child: AnimatedBuilder(
             animation: _animationController,
@@ -89,14 +95,14 @@ class _SplashScreenState extends State<SplashScreen>
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        // Logo - directly using the image without container background
+                        
                         Image.asset(
                           'assets/logo.png',
-                          width: screenWidth * 0.6, // 60% of screen width
-                          height: screenWidth * 0.6, // 60% of screen width
+                          width: screenWidth * 0.6, 
+                          height: screenWidth * 0.6, 
                           fit: BoxFit.contain,
                         ),
-                        SizedBox(height: screenHeight * 0.1), // 10% of screen height
+                        SizedBox(height: screenHeight * 0.1), 
                       ],
                     ),
                   ),
@@ -106,6 +112,7 @@ class _SplashScreenState extends State<SplashScreen>
           ),
         ),
       ),
+    )
     );
   }
 } 

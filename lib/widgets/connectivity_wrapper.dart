@@ -15,24 +15,24 @@ class ConnectivityWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // Try to find the connectivity service, if not found, assume connected
+    
     ConnectivityService? connectivityService;
     try {
       connectivityService = Get.find<ConnectivityService>();
     } catch (e) {
-      // If service is not found, return the child (assume connected)
+      
       return child;
     }
     
     return Obx(() {
-      // If connectivity service is not available, assume connected
+      
       if (connectivityService == null) {
         return child;
       }
       
       if (!connectivityService.isConnected.value && showOfflineUI) {
         return Scaffold(
-          backgroundColor: Colors.white,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
           body: OfflineUIWidget(
             mediaQuery: MediaQuery.of(context),
           ),

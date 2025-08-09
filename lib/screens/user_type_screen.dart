@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'customer_details_screen.dart';
 import 'explorer_name_screen.dart';
+import '../services/theme_service.dart';
+import '../widgets/connectivity_wrapper.dart';
 
 class UserTypeScreen extends StatefulWidget {
   const UserTypeScreen({super.key});
@@ -17,27 +19,27 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF4CAF50), // Light green
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark, // For iOS
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.white,
+    final primary = Theme.of(context).colorScheme.primary;
+
+    return ConnectivityWrapper(
+      showOfflineUI: true,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: ThemeService.instance.systemUiOverlayForPrimary(lightIcons: true),
+        child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: false,
+          backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF4CAF50), // Light green
+          backgroundColor: primary, 
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
             'Choose Your Role',
             style: GoogleFonts.poppins(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -54,16 +56,16 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                       children: [
                         SizedBox(height: screenHeight * 0.05),
                         
-                        // Logo and Title
+                        
                         Container(
                           width: screenWidth * 0.2,
                           height: screenWidth * 0.2,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(15),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Theme.of(context).shadowColor.withOpacity(0.1),
                                 blurRadius: 15,
                                 offset: const Offset(0, 8),
                               ),
@@ -73,39 +75,39 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                             child: Icon(
                               Icons.person_add,
                               size: screenWidth * 0.1,
-                              color: const Color(0xFF4CAF50), // Light green
+                              color: primary, 
                             ),
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Title
+                        
                         Text(
                           'Choose Your Role',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.06,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xFF4CAF50), // Light green
+                            color: primary, 
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.02),
                         
-                        // Subtitle
+                        
                         Text(
                           'Select how you want to use Hojaega',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                            color: primary.withOpacity(0.7), 
                           ),
                           textAlign: TextAlign.center,
                         ),
                         
                         SizedBox(height: screenHeight * 0.08),
                         
-                        // Customer Card (People who want to be hired)
+                        
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -119,15 +121,15 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                             width: double.infinity,
                             padding: EdgeInsets.all(screenWidth * 0.05),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: const Color(0xFF4CAF50).withOpacity(0.3), // Light green
+                                color: primary.withOpacity(0.3), 
                                 width: 2,
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Theme.of(context).shadowColor.withOpacity(0.1),
                                   blurRadius: 15,
                                   offset: const Offset(0, 8),
                                 ),
@@ -139,13 +141,13 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                   width: screenWidth * 0.15,
                                   height: screenWidth * 0.15,
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF4CAF50).withOpacity(0.1), // Light green
+                                    color: primary.withOpacity(0.1), 
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Icon(
                                     Icons.work,
                                     size: screenWidth * 0.08,
-                                    color: const Color(0xFF4CAF50), // Light green
+                                    color: primary, 
                                   ),
                                 ),
                                 SizedBox(width: screenWidth * 0.04),
@@ -154,11 +156,11 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'I Want to Work',
+                                        'Service Provider',
                                         style: GoogleFonts.poppins(
                                           fontSize: screenWidth * 0.045,
                                           fontWeight: FontWeight.w600,
-                                          color: const Color(0xFF4CAF50), // Light green
+                                          color: primary, 
                                         ),
                                       ),
                                       SizedBox(height: screenHeight * 0.01),
@@ -167,7 +169,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                         style: GoogleFonts.poppins(
                                           fontSize: screenWidth * 0.03,
                                           fontWeight: FontWeight.w400,
-                                          color: const Color(0xFF1B5E20).withOpacity(0.7),
+                                          color: primary.withOpacity(0.7),
                                         ),
                                       ),
                                     ],
@@ -176,7 +178,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                 Icon(
                                   Icons.arrow_forward_ios,
                                   size: screenWidth * 0.04,
-                                  color: const Color(0xFF1B5E20).withOpacity(0.7),
+                                  color: primary.withOpacity(0.7),
                                 ),
                               ],
                             ),
@@ -185,7 +187,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Explorer Card (People who want to hire)
+                        
                         GestureDetector(
                           onTap: () {
                             Navigator.push(
@@ -199,15 +201,15 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                             width: double.infinity,
                             padding: EdgeInsets.all(screenWidth * 0.05),
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(20),
                               border: Border.all(
-                                color: const Color(0xFF1B5E20).withOpacity(0.3),
+                                color: primary.withOpacity(0.3),
                                 width: 2,
                               ),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Theme.of(context).shadowColor.withOpacity(0.1),
                                   blurRadius: 15,
                                   offset: const Offset(0, 8),
                                 ),
@@ -219,13 +221,13 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                   width: screenWidth * 0.15,
                                   height: screenWidth * 0.15,
                                   decoration: BoxDecoration(
-                                    color: const Color(0xFF1B5E20).withOpacity(0.1),
+                                    color: primary.withOpacity(0.1),
                                     borderRadius: BorderRadius.circular(15),
                                   ),
                                   child: Icon(
                                     Icons.search,
                                     size: screenWidth * 0.08,
-                                    color: const Color(0xFF1B5E20),
+                                    color: primary,
                                   ),
                                 ),
                                 SizedBox(width: screenWidth * 0.04),
@@ -234,11 +236,11 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                     crossAxisAlignment: CrossAxisAlignment.start,
                                     children: [
                                       Text(
-                                        'I Want to Hire',
+                                        'Consumer',
                                         style: GoogleFonts.poppins(
                                           fontSize: screenWidth * 0.045,
                                           fontWeight: FontWeight.w600,
-                                          color: const Color(0xFF1B5E20),
+                                          color: primary,
                                         ),
                                       ),
                                       SizedBox(height: screenHeight * 0.01),
@@ -247,7 +249,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                         style: GoogleFonts.poppins(
                                           fontSize: screenWidth * 0.03,
                                           fontWeight: FontWeight.w400,
-                                          color: const Color(0xFF1B5E20).withOpacity(0.7),
+                                          color: primary.withOpacity(0.7),
                                         ),
                                       ),
                                     ],
@@ -256,14 +258,14 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
                                 Icon(
                                   Icons.arrow_forward_ios,
                                   size: screenWidth * 0.04,
-                                  color: const Color(0xFF1B5E20).withOpacity(0.7),
+                                  color: primary.withOpacity(0.7),
                                 ),
                               ],
                             ),
                           ),
                         ),
                         
-                        // Extra padding at bottom
+                        
                         SizedBox(height: screenHeight * 0.05),
                       ],
                     ),
@@ -274,6 +276,7 @@ class _UserTypeScreenState extends State<UserTypeScreen> {
           ),
         ),
       ),
+    )
     );
   }
 } 

@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/custom_snackbar.dart';
+import '../services/theme_service.dart';
 import 'service_workers_screen.dart';
+import '../widgets/connectivity_wrapper.dart';
 
 class ExplorerDashboardScreen extends StatefulWidget {
   final String userName;
@@ -105,10 +107,11 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
       builder: (BuildContext context) {
         return StatefulBuilder(
           builder: (context, setState) {
+            final primary = Theme.of(context).colorScheme.primary;
             return Container(
               height: MediaQuery.of(context).size.height * 0.7,
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Theme.of(context).colorScheme.surface,
                 borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
@@ -119,22 +122,22 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                 padding: EdgeInsets.all(MediaQuery.of(context).size.width * 0.05),
                  child: Column(
                    children: [
-                     // Title
-                     Text(
+                     
+                      Text(
                        'Select City',
                        style: GoogleFonts.poppins(
                          fontSize: MediaQuery.of(context).size.width * 0.05,
                          fontWeight: FontWeight.w600,
-                         color: const Color(0xFF4CAF50), // Light green
+                          color: primary, 
                        ),
                      ),
                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                      
-                     // Search Bar
-                     Container(
+                     
+                      Container(
                        decoration: BoxDecoration(
                          border: Border.all(
-                           color: const Color(0xFF4CAF50).withOpacity(0.3), // Light green
+                            color: primary.withOpacity(0.3), 
                            width: 2,
                          ),
                          borderRadius: BorderRadius.circular(15),
@@ -144,20 +147,20 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                          style: GoogleFonts.poppins(
                            fontSize: MediaQuery.of(context).size.width * 0.04,
                            fontWeight: FontWeight.w500,
-                           color: const Color(0xFF4CAF50), // Light green
+                            color: primary, 
                          ),
                          decoration: InputDecoration(
                            hintText: 'Search cities...',
                            hintStyle: GoogleFonts.poppins(
                              fontSize: MediaQuery.of(context).size.width * 0.04,
                              fontWeight: FontWeight.w400,
-                             color: const Color(0xFF4CAF50).withOpacity(0.5), // Light green
+                              color: primary.withOpacity(0.5), 
                            ),
                            border: InputBorder.none,
                            contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                            prefixIcon: Icon(
                              Icons.search,
-                             color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                              color: primary.withOpacity(0.7), 
                              size: MediaQuery.of(context).size.width * 0.05,
                            ),
                          ),
@@ -172,17 +175,17 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                      ),
                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                      
-                     // Cities List
+                     
                      Expanded(
                        child: filteredCities.isEmpty
                            ? Center(
-                               child: Column(
+                           child: Column(
                                  mainAxisAlignment: MainAxisAlignment.center,
                                  children: [
                                    Icon(
                                      Icons.search_off,
                                      size: MediaQuery.of(context).size.width * 0.1,
-                                     color: const Color(0xFF4CAF50).withOpacity(0.5), // Light green
+                                      color: primary.withOpacity(0.5), 
                                    ),
                                    SizedBox(height: MediaQuery.of(context).size.height * 0.02),
                                    Text(
@@ -190,7 +193,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                      style: GoogleFonts.poppins(
                                        fontSize: MediaQuery.of(context).size.width * 0.04,
                                        fontWeight: FontWeight.w600,
-                                       color: const Color(0xFF4CAF50), // Light green
+                                        color: primary, 
                                      ),
                                    ),
                                    SizedBox(height: MediaQuery.of(context).size.height * 0.01),
@@ -199,7 +202,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                      style: GoogleFonts.poppins(
                                        fontSize: MediaQuery.of(context).size.width * 0.035,
                                        fontWeight: FontWeight.w400,
-                                       color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                                        color: primary.withOpacity(0.7), 
                                      ),
                                    ),
                                  ],
@@ -224,15 +227,15 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                         horizontal: MediaQuery.of(context).size.width * 0.04,
                                         vertical: MediaQuery.of(context).size.height * 0.015,
                                       ),
-                                      decoration: BoxDecoration(
-                                        color: isSelected 
-                                            ? const Color(0xFF4CAF50).withOpacity(0.1) // Light green
-                                            : Colors.transparent,
+                                       decoration: BoxDecoration(
+                                         color: isSelected 
+                                             ? primary.withOpacity(0.1) 
+                                             : Colors.transparent,
                                         borderRadius: BorderRadius.circular(10),
                                                                                   border: Border.all(
                                             color: isSelected 
-                                                ? const Color(0xFF4CAF50) // Light green
-                                                : const Color(0xFF4CAF50).withOpacity(0.2), // Light green
+                                                ? primary 
+                                                : primary.withOpacity(0.2), 
                                             width: isSelected ? 2 : 1,
                                           ),
                                       ),
@@ -240,9 +243,9 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                         children: [
                                           Icon(
                                             Icons.location_on,
-                                            color: isSelected 
-                                                ? const Color(0xFF4CAF50) // Light green
-                                                : const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                                             color: isSelected 
+                                                 ? primary 
+                                                 : primary.withOpacity(0.7), 
                                             size: MediaQuery.of(context).size.width * 0.05,
                                           ),
                                           SizedBox(width: MediaQuery.of(context).size.width * 0.03),
@@ -252,16 +255,16 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                               style: GoogleFonts.poppins(
                                                 fontSize: MediaQuery.of(context).size.width * 0.04,
                                                 fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
-                                                color: isSelected 
-                                                    ? const Color(0xFF4CAF50) // Light green
-                                                    : const Color(0xFF4CAF50).withOpacity(0.8), // Light green
+                                                 color: isSelected 
+                                                     ? primary 
+                                                     : primary.withOpacity(0.8), 
                                               ),
                                             ),
                                           ),
                                           if (isSelected)
                                             Icon(
                                               Icons.check_circle,
-                                              color: const Color(0xFF4CAF50), // Light green
+                                               color: primary, 
                                               size: MediaQuery.of(context).size.width * 0.05,
                                             ),
                                         ],
@@ -272,16 +275,16 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                               ),
                      ),
                      
-                     // Cancel Button
+                     
                      SizedBox(height: MediaQuery.of(context).size.height * 0.02),
-                     TextButton(
+                      TextButton(
                        onPressed: () => Navigator.pop(context),
                        child: Text(
                          'Cancel',
                          style: GoogleFonts.poppins(
                            fontSize: MediaQuery.of(context).size.width * 0.04,
                            fontWeight: FontWeight.w500,
-                           color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                            color: primary.withOpacity(0.7), 
                          ),
                        ),
                      ),
@@ -300,18 +303,17 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-         return AnnotatedRegion<SystemUiOverlayStyle>(
-       value: const SystemUiOverlayStyle(
-         statusBarColor: Color(0xFF4CAF50), // Light green
-         statusBarIconBrightness: Brightness.light,
-         statusBarBrightness: Brightness.dark, // For iOS
-         systemNavigationBarColor: Colors.white,
-         systemNavigationBarIconBrightness: Brightness.light,
-       ),
-       child: Scaffold(
-         backgroundColor: Colors.white,
+    final primary = Theme.of(context).colorScheme.primary;
+    return ConnectivityWrapper(
+      showOfflineUI: true,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+         value: ThemeService.instance.systemUiOverlayForPrimary(lightIcons: true),
+        child: Scaffold(
+           extendBody: true,
+           extendBodyBehindAppBar: false,
+           backgroundColor: Colors.white,
          appBar: AppBar(
-           backgroundColor: const Color(0xFF4CAF50), // Light green
+           backgroundColor: primary, 
            elevation: 0,
                        leading: Builder(
               builder: (context) => IconButton(
@@ -323,10 +325,10 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
             ),
            title: Column(
              children: [
-               Text(
+                Text(
                  'Hi, ${widget.userName}',
                  style: GoogleFonts.poppins(
-                   color: Colors.white,
+                   color: Theme.of(context).colorScheme.onPrimary,
                    fontWeight: FontWeight.w600,
                    fontSize: screenWidth * 0.045,
                  ),
@@ -334,7 +336,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                Text(
                  'Find Workers',
                  style: GoogleFonts.poppins(
-                   color: Colors.white.withOpacity(0.8),
+                   color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
                    fontWeight: FontWeight.w400,
                    fontSize: screenWidth * 0.035,
                  ),
@@ -350,7 +352,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
               children: [
                 SizedBox(height: screenHeight * 0.02),
                 
-                // City Selector
+                
                 GestureDetector(
                   onTap: _showCityDialog,
                   child: Container(
@@ -358,7 +360,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                     padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04, vertical: screenHeight * 0.015),
                     decoration: BoxDecoration(
                       border: Border.all(
-                        color: const Color(0xFF4CAF50).withOpacity(0.3), // Light green
+                 color: primary.withOpacity(0.3), 
                         width: 2,
                       ),
                       borderRadius: BorderRadius.circular(15),
@@ -367,7 +369,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                       children: [
                         Icon(
                           Icons.location_on,
-                          color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                   color: primary.withOpacity(0.7), 
                           size: screenWidth * 0.05,
                         ),
                         SizedBox(width: screenWidth * 0.02),
@@ -377,13 +379,13 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                             style: GoogleFonts.poppins(
                               fontSize: screenWidth * 0.04,
                               fontWeight: FontWeight.w500,
-                              color: const Color(0xFF4CAF50), // Light green
+                       color: primary, 
                             ),
                           ),
                         ),
                         Icon(
                           Icons.keyboard_arrow_down,
-                          color: const Color(0xFF4CAF50), // Light green
+                   color: primary, 
                           size: screenWidth * 0.06,
                         ),
                       ],
@@ -393,7 +395,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                 
                 SizedBox(height: screenHeight * 0.04),
                 
-                // Services Grid
+                
                 Expanded(
                   child: GridView.builder(
                     gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -410,15 +412,15 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         onTap: () => _onServiceCardTap(service['name']),
                         child: Container(
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(20),
                             border: Border.all(
-                              color: service['color'].withOpacity(0.3),
+                               color: service['color'].withOpacity(0.3),
                               width: 2,
                             ),
                             boxShadow: [
                               BoxShadow(
-                                color: service['color'].withOpacity(0.1),
+                                color: Theme.of(context).shadowColor.withOpacity(0.1),
                                 blurRadius: 15,
                                 offset: const Offset(0, 8),
                               ),
@@ -446,7 +448,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.04,
                                   fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF4CAF50), // Light green
+                                  color: primary, 
                                 ),
                                 textAlign: TextAlign.center,
                               ),
@@ -458,7 +460,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                   style: GoogleFonts.poppins(
                                     fontSize: screenWidth * 0.025,
                                     fontWeight: FontWeight.w400,
-                                    color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                                    color: primary.withOpacity(0.7), 
                                   ),
                                   textAlign: TextAlign.center,
                                   maxLines: 2,
@@ -480,10 +482,10 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
         ),
         drawer: Drawer(
           child: Container(
-            color: Colors.white,
+            color: Theme.of(context).colorScheme.surface,
             child: Column(
               children: [
-                // Header
+                
                 Container(
                   width: double.infinity,
                   padding: EdgeInsets.only(
@@ -493,10 +495,10 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                     right: 20,
                   ),
                   decoration: BoxDecoration(
-                    color: const Color(0xFF4CAF50), // Light green
+                    color: primary, 
                     boxShadow: [
                       BoxShadow(
-                        color: Colors.black.withOpacity(0.1),
+                        color: Theme.of(context).shadowColor.withOpacity(0.1),
                         blurRadius: 10,
                         offset: const Offset(0, 2),
                       ),
@@ -511,11 +513,11 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                             width: 60,
                             height: 60,
                             decoration: BoxDecoration(
-                              color: Colors.white,
+                              color: Theme.of(context).colorScheme.surface,
                               borderRadius: BorderRadius.circular(30),
                               boxShadow: [
                                 BoxShadow(
-                                  color: Colors.black.withOpacity(0.1),
+                                  color: Theme.of(context).shadowColor.withOpacity(0.1),
                                   blurRadius: 10,
                                   offset: const Offset(0, 2),
                                 ),
@@ -524,7 +526,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                             child: Icon(
                               Icons.person,
                               size: 30,
-                              color: const Color(0xFF4CAF50), // Light green
+                              color: primary, 
                             ),
                           ),
                           SizedBox(width: 15),
@@ -535,7 +537,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                 Text(
                                   'Hi, ${widget.userName}',
                                   style: GoogleFonts.poppins(
-                                    color: Colors.white,
+                                    color: Theme.of(context).colorScheme.onPrimary,
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
                                   ),
@@ -544,7 +546,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                 Text(
                                   'Welcome back!',
                                   style: GoogleFonts.poppins(
-                                    color: Colors.white.withOpacity(0.8),
+                                    color: Theme.of(context).colorScheme.onPrimary.withOpacity(0.8),
                                     fontSize: 14,
                                     fontWeight: FontWeight.w400,
                                   ),
@@ -558,14 +560,29 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                   ),
                 ),
                 
-                // Menu Items
+                
                 Expanded(
                   child: ListView(
                     padding: EdgeInsets.zero,
                     children: [
                       SizedBox(height: 20),
                       
-                      // Dashboard
+                       // Dark Mode toggle
+                      SwitchListTile(
+                        secondary: Icon(Icons.dark_mode, color: Theme.of(context).colorScheme.primary),
+                        title: Text(
+                          'Dark Mode',
+                          style: GoogleFonts.poppins(fontWeight: FontWeight.w500),
+                        ),
+                         value: ThemeService.instance.brightness == Brightness.dark,
+                         onChanged: (enabled) {
+                           final newBrightness = enabled ? Brightness.dark : Brightness.light;
+                           ThemeService.instance.setBrightness(newBrightness);
+                           setState(() {});
+                         },
+                      ),
+
+                      
                       _buildMenuItem(
                         icon: Icons.dashboard,
                         title: 'Dashboard',
@@ -575,7 +592,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         isSelected: true,
                       ),
                       
-                      // Language
+                      
                       _buildMenuItem(
                         icon: Icons.language,
                         title: 'Language',
@@ -593,19 +610,19 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                                   mainAxisSize: MainAxisSize.min,
                                   children: [
                                     ListTile(
-                                      leading: Icon(Icons.language, color: Color(0xFF4CAF50)),
+                                      leading: Icon(Icons.language, color: Theme.of(context).colorScheme.primary),
                                       title: Text('English', style: GoogleFonts.poppins()),
                                       onTap: () {
                                         Navigator.pop(context);
-                                        // TODO: Set language to English
+                                        
                                       },
                                     ),
                                     ListTile(
-                                      leading: Icon(Icons.language, color: Color(0xFF4CAF50)),
+                                      leading: Icon(Icons.language, color: Theme.of(context).colorScheme.primary),
                                       title: Text('Urdu', style: GoogleFonts.poppins()),
                                       onTap: () {
                                         Navigator.pop(context);
-                                        // TODO: Set language to Urdu
+                                        
                                       },
                                     ),
                                   ],
@@ -616,7 +633,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         },
                       ),
                       
-                      // Favorites
+                      
                       _buildMenuItem(
                         icon: Icons.favorite,
                         title: 'Favorites',
@@ -626,7 +643,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         },
                       ),
                       
-                      // Notifications
+                      
                       _buildMenuItem(
                         icon: Icons.notifications,
                         title: 'Notifications',
@@ -636,9 +653,9 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         },
                       ),
                       
-                      Divider(height: 30, thickness: 1, color: Colors.grey.withOpacity(0.3)),
+                      Divider(height: 30, thickness: 1, color: Theme.of(context).dividerColor),
                       
-                      // Settings
+                      
                       _buildMenuItem(
                         icon: Icons.settings,
                         title: 'Settings',
@@ -648,7 +665,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         },
                       ),
                       
-                      // Help & Support
+                      
                       _buildMenuItem(
                         icon: Icons.help,
                         title: 'Help & Support',
@@ -658,7 +675,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         },
                       ),
                       
-                      // Terms & Conditions
+                      
                       _buildMenuItem(
                         icon: Icons.description,
                         title: 'Terms & Conditions',
@@ -668,7 +685,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         },
                       ),
                       
-                      // Privacy Policy
+                      
                       _buildMenuItem(
                         icon: Icons.privacy_tip,
                         title: 'Privacy Policy',
@@ -678,7 +695,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         },
                       ),
                       
-                      // About Us
+                      
                       _buildMenuItem(
                         icon: Icons.info,
                         title: 'About Us',
@@ -688,9 +705,9 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         },
                       ),
                       
-                      Divider(height: 30, thickness: 1, color: Colors.grey.withOpacity(0.3)),
+                      Divider(height: 30, thickness: 1, color: Theme.of(context).dividerColor),
                       
-                      // Logout
+                      
                       _buildMenuItem(
                         icon: Icons.logout,
                         title: 'Logout',
@@ -710,6 +727,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
           ),
         ),
       ),
+    )
     );
   }
   
@@ -728,7 +746,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
           color: isLogout 
               ? Colors.red 
               : isSelected 
-                  ? const Color(0xFF4CAF50) // Light green
+                  ? const Color(0xFF4CAF50) 
                   : Colors.grey[600],
           size: 24,
         ),
@@ -738,16 +756,16 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
             color: isLogout 
                 ? Colors.red 
                 : isSelected 
-                    ? const Color(0xFF4CAF50) // Light green
+                    ? const Color(0xFF4CAF50) 
                     : Colors.grey[800],
             fontSize: 16,
             fontWeight: isSelected ? FontWeight.w600 : FontWeight.w500,
           ),
         ),
         trailing: isSelected 
-            ? Icon(
+                ? Icon(
                 Icons.arrow_forward_ios,
-                color: const Color(0xFF4CAF50), // Light green
+                color: Theme.of(context).colorScheme.primary, 
                 size: 16,
               )
             : null,
@@ -756,7 +774,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
           borderRadius: BorderRadius.circular(10),
         ),
         tileColor: isSelected 
-            ? const Color(0xFF4CAF50).withOpacity(0.1) // Light green
+            ? Theme.of(context).colorScheme.primary.withOpacity(0.1) 
             : Colors.transparent,
       ),
     );
@@ -797,9 +815,9 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                   ),
                 ),
                 Center(
-                  child: Icon(
+                    child: Icon(
                     Icons.logout,
-                    color: const Color(0xFF4CAF50),
+                      color: Theme.of(context).colorScheme.primary,
                     size: 80,
                   ),
                 ),
@@ -807,10 +825,10 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                 Center(
                   child: Text(
                     'Are you sure',
-                    style: GoogleFonts.poppins(
+                      style: GoogleFonts.poppins(
                       fontWeight: FontWeight.w600,
                       fontSize: 18,
-                      color: const Color(0xFF4CAF50), // Light green
+                        color: Theme.of(context).colorScheme.primary, 
                     ),
                   ),
                 ),
@@ -832,7 +850,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                       child: OutlinedButton(
                         onPressed: () => Navigator.pop(context),
                         style: OutlinedButton.styleFrom(
-                          side: BorderSide(color: const Color(0xFF4CAF50)),
+                          side: BorderSide(color: Theme.of(context).colorScheme.primary),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                           ),
@@ -841,7 +859,7 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                         child: Text(
                           'Cancel',
                           style: GoogleFonts.poppins(
-                            color: const Color(0xFF4CAF50),
+                            color: Theme.of(context).colorScheme.primary,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -851,11 +869,11 @@ class _ExplorerDashboardScreenState extends State<ExplorerDashboardScreen> {
                     Expanded(
                       child: ElevatedButton(
                         onPressed: () {
-                          Navigator.pop(context); // Close sheet
-                          Navigator.pushReplacementNamed(context, '/'); // Navigate to splash screen
+                          Navigator.pop(context); 
+                          Navigator.pushReplacementNamed(context, '/'); 
                         },
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xFF4CAF50),
+                          backgroundColor: Theme.of(context).colorScheme.primary,
                           foregroundColor: Colors.white,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/custom_snackbar.dart';
+import '../services/theme_service.dart';
+import '../widgets/connectivity_wrapper.dart';
 
 class CustomerDetailsScreen extends StatefulWidget {
   const CustomerDetailsScreen({super.key});
@@ -47,7 +49,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
 
   void _submitDetails() {
     if (_isFormValid) {
-      // TODO: Implement details submission logic
+      
       print('Customer Details:');
       print('Name: ${_nameController.text}');
       print('Contact: ${_contactController.text}');
@@ -56,8 +58,8 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
       
       customSnackBar('Success', 'Your details have been uploaded successfully!', context: context);
       
-      // TODO: Navigate to customer dashboard or next screen
-      // Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => CustomerDashboard()));
+      
+      
     }
   }
 
@@ -66,27 +68,33 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF4CAF50), // Light green
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark, // For iOS
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.white,
+    final primary = Theme.of(context).colorScheme.primary;
+    return ConnectivityWrapper(
+      showOfflineUI: true,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarDividerColor: Colors.transparent,
+        ),
+        child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: false,
+          backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF4CAF50), // Light green
+          backgroundColor: primary, 
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
             'Upload Your Details',
             style: GoogleFonts.poppins(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -103,16 +111,16 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                       children: [
                         SizedBox(height: screenHeight * 0.05),
                         
-                        // Logo and Title
+                        
                         Container(
                           width: screenWidth * 0.2,
                           height: screenWidth * 0.2,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(15),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Theme.of(context).shadowColor.withOpacity(0.1),
                                 blurRadius: 15,
                                 offset: const Offset(0, 8),
                               ),
@@ -122,39 +130,39 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             child: Icon(
                               Icons.work,
                               size: screenWidth * 0.1,
-                              color: const Color(0xFF4CAF50), // Light green
+                              color: primary, 
                             ),
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Title
+                        
                         Text(
                           'Get Hired!',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.06,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFF4CAF50)
+                            color: primary
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.02),
                         
-                        // Subtitle
+                        
                         Text(
                           'Upload your details so people can hire you',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                            color: primary.withOpacity(0.7), 
                           ),
                           textAlign: TextAlign.center,
                         ),
                         
                         SizedBox(height: screenHeight * 0.06),
                         
-                        // Name Input
+                        
                         _buildInputField(
                           controller: _nameController,
                           focusNode: _nameFocusNode,
@@ -169,7 +177,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                         
                         SizedBox(height: screenHeight * 0.03),
                         
-                        // Contact Input
+                        
                         _buildInputField(
                           controller: _contactController,
                           focusNode: _contactFocusNode,
@@ -186,7 +194,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                         
                         SizedBox(height: screenHeight * 0.03),
                         
-                        // CNIC Input
+                        
                         _buildInputField(
                           controller: _cnicController,
                           focusNode: _cnicFocusNode,
@@ -203,7 +211,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                         
                         SizedBox(height: screenHeight * 0.03),
                         
-                        // Role Input
+                        
                         _buildInputField(
                           controller: _roleController,
                           focusNode: _roleFocusNode,
@@ -217,7 +225,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Submit Button
+                        
                         Container(
                           width: double.infinity,
                           height: screenHeight * 0.06,
@@ -225,11 +233,11 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                             onPressed: _isFormValid ? _submitDetails : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _isFormValid
-                                  ? const Color(0xFF4CAF50) // Light green
-                                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
-                              foregroundColor: Colors.white,
+                                  ? primary 
+                                  : primary.withOpacity(0.3), 
+                              foregroundColor: Theme.of(context).colorScheme.onPrimary,
                               elevation: _isFormValid ? 8 : 0,
-                              shadowColor: Colors.black.withOpacity(0.3),
+                              shadowColor: Theme.of(context).shadowColor.withOpacity(0.3),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -247,14 +255,14 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Info Card
+                        
                         Container(
                           padding: EdgeInsets.all(screenWidth * 0.04),
-                          decoration: BoxDecoration(
-                            color: const Color(0xFF4CAF50).withOpacity(0.05), // Light green
+                           decoration: BoxDecoration(
+                             color: primary.withOpacity(0.05), 
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: const Color(0xFF4CAF50).withOpacity(0.1), // Light green
+                               color: primary.withOpacity(0.1), 
                               width: 1,
                             ),
                           ),
@@ -266,7 +274,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.035,
                                   fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF4CAF50), // Light green
+                                   color: primary, 
                                 ),
                               ),
                               SizedBox(height: screenHeight * 0.02),
@@ -279,7 +287,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
                           ),
                         ),
                         
-                        // Extra padding at bottom
+                        
                         SizedBox(height: screenHeight * 0.05),
                       ],
                     ),
@@ -290,6 +298,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
           ),
         ),
       ),
+    )
     );
   }
 
@@ -305,6 +314,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
     required Function(String) onChanged,
   }) {
     final screenWidth = MediaQuery.of(context).size.width;
+    final primary = Theme.of(context).colorScheme.primary;
     
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -314,7 +324,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
           style: GoogleFonts.poppins(
             fontSize: screenWidth * 0.035,
             fontWeight: FontWeight.w600,
-            color: const Color(0xFF1B5E20),
+            color: primary,
           ),
         ),
         SizedBox(height: screenWidth * 0.02),
@@ -322,8 +332,8 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
           decoration: BoxDecoration(
             border: Border.all(
               color: focusNode.hasFocus
-                  ? const Color(0xFF4CAF50) // Light green
-                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
+                  ? primary 
+                  : primary.withOpacity(0.3), 
               width: 2,
             ),
             borderRadius: BorderRadius.circular(15),
@@ -336,20 +346,20 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
             style: GoogleFonts.poppins(
               fontSize: screenWidth * 0.04,
               fontWeight: FontWeight.w500,
-              color: const Color(0xFF4CAF50), // Light green
+              color: primary, 
             ),
             decoration: InputDecoration(
               hintText: hint,
               hintStyle: GoogleFonts.poppins(
                 fontSize: screenWidth * 0.04,
                 fontWeight: FontWeight.w400,
-                color: const Color(0xFF4CAF50).withOpacity(0.5), // Light green
+                color: primary.withOpacity(0.5), 
               ),
               border: InputBorder.none,
               contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
               prefixIcon: Icon(
                 icon,
-                color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                color: primary.withOpacity(0.7), 
                 size: screenWidth * 0.05,
               ),
             ),
@@ -367,7 +377,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
         Icon(
           icon,
           size: screenWidth * 0.035,
-          color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+          color: const Color(0xFF4CAF50).withOpacity(0.7), 
         ),
         SizedBox(width: screenWidth * 0.02),
         Expanded(
@@ -376,7 +386,7 @@ class _CustomerDetailsScreenState extends State<CustomerDetailsScreen> {
             style: GoogleFonts.poppins(
               fontSize: screenWidth * 0.03,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF4CAF50).withOpacity(0.8), // Light green
+              color: const Color(0xFF4CAF50).withOpacity(0.8), 
             ),
           ),
         ),

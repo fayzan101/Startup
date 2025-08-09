@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import '../utils/custom_snackbar.dart';
+import '../services/theme_service.dart';
 import 'explorer_dashboard_screen.dart';
+import '../widgets/connectivity_wrapper.dart';
 
 class ExplorerNameScreen extends StatefulWidget {
   const ExplorerNameScreen({super.key});
@@ -31,12 +33,12 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
 
   void _continueAsExplorer() {
     if (_isValidName) {
-      // TODO: Implement explorer registration logic
+      
       print('Explorer name: ${_nameController.text}');
       
       customSnackBar('Success', 'Welcome ${_nameController.text}!', context: context);
       
-      // Navigate to explorer dashboard with name
+      
       Navigator.pushReplacement(
         context, 
         MaterialPageRoute(
@@ -51,27 +53,33 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF4CAF50), // Light green
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark, // For iOS
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.white,
+    final primary = Theme.of(context).colorScheme.primary;
+    return ConnectivityWrapper(
+      showOfflineUI: true,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarDividerColor: Colors.transparent,
+        ),
+        child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: false,
+          backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF4CAF50), // Light green
+          backgroundColor: primary, 
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
             'Explorer Setup',
             style: GoogleFonts.poppins(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -88,16 +96,16 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                       children: [
                         SizedBox(height: screenHeight * 0.05),
                         
-                        // Logo and Title
+                        
                         Container(
                           width: screenWidth * 0.2,
                           height: screenWidth * 0.2,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(15),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Theme.of(context).shadowColor.withOpacity(0.1),
                                 blurRadius: 15,
                                 offset: const Offset(0, 8),
                               ),
@@ -107,45 +115,45 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                             child: Icon(
                               Icons.search,
                               size: screenWidth * 0.1,
-                              color: const Color(0xFF4CAF50), // Light green
+                              color: primary, 
                             ),
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Title
+                        
                         Text(
                           'Welcome Explorer!',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.06,
                             fontWeight: FontWeight.w600,
-                            color: Color(0xFF4CAF50)
+                            color: primary
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.02),
                         
-                        // Subtitle
+                        
                         Text(
                           'Tell us your name to get started',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                            color: primary.withOpacity(0.7), 
                           ),
                           textAlign: TextAlign.center,
                         ),
                         
                         SizedBox(height: screenHeight * 0.06),
                         
-                        // Name Input Field
+                        
                         Container(
                           decoration: BoxDecoration(
                             border: Border.all(
                               color: _nameFocusNode.hasFocus
-                                  ? const Color(0xFF4CAF50) // Light green
-                                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
+                                  ? primary 
+                                  : primary.withOpacity(0.3), 
                               width: 2,
                             ),
                             borderRadius: BorderRadius.circular(15),
@@ -158,20 +166,20 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                             style: GoogleFonts.poppins(
                               fontSize: screenWidth * 0.04,
                               fontWeight: FontWeight.w500,
-                              color: const Color(0xFF4CAF50), // Light green
+                              color: primary, 
                             ),
                             decoration: InputDecoration(
                               hintText: 'Enter your full name',
                               hintStyle: GoogleFonts.poppins(
                                 fontSize: screenWidth * 0.04,
                                 fontWeight: FontWeight.w400,
-                                color: Color(0xFF4CAF50).withOpacity(0.5),
+                                color: primary.withOpacity(0.5),
                               ),
                               border: InputBorder.none,
                               contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 18),
                               prefixIcon: Icon(
                                 Icons.person_outline,
-                                color: Color(0xFF4CAF50).withOpacity(0.7),
+                                color: primary.withOpacity(0.7),
                                 size: screenWidth * 0.05,
                               ),
                             ),
@@ -184,13 +192,13 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                         
                         SizedBox(height: screenHeight * 0.02),
                         
-                        // Name hint
-                        Row(
+                        
+                          Row(
                           children: [
                             Icon(
                               Icons.info_outline,
                               size: screenWidth * 0.035,
-                              color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                               color: primary.withOpacity(0.7), 
                             ),
                             SizedBox(width: screenWidth * 0.02),
                             Expanded(
@@ -199,7 +207,7 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.03,
                                   fontWeight: FontWeight.w400,
-                                  color:Color(0xFF4CAF50).withOpacity(0.7),
+                                   color: primary.withOpacity(0.7),
                                 ),
                               ),
                             ),
@@ -208,7 +216,7 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Continue Button
+                        
                         Container(
                           width: double.infinity,
                           height: screenHeight * 0.06,
@@ -216,11 +224,11 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                             onPressed: _isValidName ? _continueAsExplorer : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _isValidName
-                                  ? const Color(0xFF4CAF50) // Light green
-                                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
-                              foregroundColor: Colors.white,
+                                  ? primary 
+                                  : primary.withOpacity(0.3), 
+                              foregroundColor: Theme.of(context).colorScheme.onPrimary,
                               elevation: _isValidName ? 8 : 0,
-                              shadowColor: Colors.black.withOpacity(0.3),
+                              shadowColor: Theme.of(context).shadowColor.withOpacity(0.3),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -238,14 +246,14 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Explorer benefits
+                        
                         Container(
                           padding: EdgeInsets.all(screenWidth * 0.04),
                           decoration: BoxDecoration(
-                            color: const Color(0xFF4CAF50).withOpacity(0.05), // Light green
+                             color: primary.withOpacity(0.05), 
                             borderRadius: BorderRadius.circular(15),
                             border: Border.all(
-                              color: const Color(0xFF4CAF50).withOpacity(0.1), // Light green
+                               color: primary.withOpacity(0.1), 
                               width: 1,
                             ),
                           ),
@@ -257,7 +265,7 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.035,
                                   fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF4CAF50), // Light green
+                                   color: primary, 
                                 ),
                               ),
                               SizedBox(height: screenHeight * 0.02),
@@ -270,7 +278,7 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
                           ),
                         ),
                         
-                        // Extra padding at bottom
+                        
                         SizedBox(height: screenHeight * 0.05),
                       ],
                     ),
@@ -281,6 +289,7 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
           ),
         ),
       ),
+    )
     );
   }
 
@@ -290,7 +299,7 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
         Icon(
           icon,
           size: screenWidth * 0.035,
-          color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+          color: const Color(0xFF4CAF50).withOpacity(0.7), 
         ),
         SizedBox(width: screenWidth * 0.02),
         Expanded(
@@ -299,7 +308,7 @@ class _ExplorerNameScreenState extends State<ExplorerNameScreen> {
             style: GoogleFonts.poppins(
               fontSize: screenWidth * 0.03,
               fontWeight: FontWeight.w400,
-              color: const Color(0xFF4CAF50).withOpacity(0.8), // Light green
+              color: const Color(0xFF4CAF50).withOpacity(0.8), 
             ),
           ),
         ),

@@ -19,7 +19,7 @@ class OfflineUIWidget extends StatelessWidget {
           Icon(
             Icons.wifi_off,
             size: mediaQuery.size.width * 0.2,
-            color: Color(0xFF007AFF),
+            color: Theme.of(context).colorScheme.primary,
           ),
           SizedBox(height: mediaQuery.size.height * 0.02),
           Text(
@@ -27,7 +27,7 @@ class OfflineUIWidget extends StatelessWidget {
             style: GoogleFonts.sora(
               fontSize: mediaQuery.size.width * 0.045,
               fontWeight: FontWeight.w500,
-              color: ColorResources.blackColor,
+              color: Theme.of(context).colorScheme.onBackground,
             ),
           ),
         ],

@@ -3,7 +3,9 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'dart:async';
 import '../utils/custom_snackbar.dart';
+import '../services/theme_service.dart';
 import 'user_type_screen.dart';
+import '../widgets/connectivity_wrapper.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   final String phoneNumber;
@@ -70,7 +72,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
       });
       _startTimer();
       
-      // TODO: Implement resend OTP logic
+      
       print('Resending OTP to: ${widget.phoneNumber}');
       
       customSnackBar('Success', 'OTP resent to ${widget.phoneNumber}', context: context);
@@ -97,12 +99,12 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
 
   void _verifyOtp() {
     if (_otp.length == 6) {
-      // TODO: Implement OTP verification logic
+      
       print('OTP entered: $_otp');
       
       customSnackBar('Success', 'OTP verified: $_otp', context: context);
       
-      // Navigate to user type selection screen
+      
       Navigator.pushReplacement(
         context,
         MaterialPageRoute(builder: (context) => const UserTypeScreen()),
@@ -121,27 +123,33 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-    return AnnotatedRegion<SystemUiOverlayStyle>(
-      value: const SystemUiOverlayStyle(
-        statusBarColor: Color(0xFF4CAF50), // Light green
-        statusBarIconBrightness: Brightness.light,
-        statusBarBrightness: Brightness.dark, // For iOS
-        systemNavigationBarColor: Colors.white,
-        systemNavigationBarIconBrightness: Brightness.light,
-      ),
-      child: Scaffold(
-        backgroundColor: Colors.white,
+    final primary = Theme.of(context).colorScheme.primary;
+    return ConnectivityWrapper(
+      showOfflineUI: true,
+      child: AnnotatedRegion<SystemUiOverlayStyle>(
+        value: const SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+          statusBarBrightness: Brightness.light,
+          systemNavigationBarColor: Colors.white,
+          systemNavigationBarIconBrightness: Brightness.dark,
+          systemNavigationBarDividerColor: Colors.transparent,
+        ),
+        child: Scaffold(
+          extendBody: true,
+          extendBodyBehindAppBar: false,
+          backgroundColor: Colors.white,
         appBar: AppBar(
-          backgroundColor: const Color(0xFF4CAF50), // Light green
+          backgroundColor: primary, 
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: Icon(Icons.arrow_back, color: Theme.of(context).colorScheme.onPrimary),
             onPressed: () => Navigator.pop(context),
           ),
           title: Text(
             'OTP Verification',
             style: GoogleFonts.poppins(
-              color: Colors.white,
+              color: Theme.of(context).colorScheme.onPrimary,
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -158,16 +166,16 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       children: [
                         SizedBox(height: screenHeight * 0.05),
                         
-                        // Logo and Title
+                        
                         Container(
                           width: screenWidth * 0.2,
                           height: screenWidth * 0.2,
                           decoration: BoxDecoration(
-                            color: Colors.white,
+                            color: Theme.of(context).colorScheme.surface,
                             borderRadius: BorderRadius.circular(15),
                             boxShadow: [
                               BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
+                                color: Theme.of(context).shadowColor.withOpacity(0.1),
                                 blurRadius: 15,
                                 offset: const Offset(0, 8),
                               ),
@@ -177,51 +185,51 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             child: Icon(
                               Icons.verified_user,
                               size: screenWidth * 0.1,
-                              color: const Color(0xFF4CAF50), // Light green
+                              color: primary, 
                             ),
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Verification Text
+                        
                         Text(
                           'Verification',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.06,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xFF4CAF50), // Light green
+                            color: primary, 
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.02),
                         
-                        // Phone Number Text
+                        
                         Text(
                           'Check your phone we have sent you the Pin',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w400,
-                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                            color: primary.withOpacity(0.7), 
                           ),
                           textAlign: TextAlign.center,
                         ),
                         
                         SizedBox(height: screenHeight * 0.02),
                         
-                        // Phone Number Display
+                        
                         Text(
                           '+92 ${widget.phoneNumber}',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.04,
                             fontWeight: FontWeight.w600,
-                            color: const Color(0xFF4CAF50), // Light green
+                            color: primary, 
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.06),
                         
-                        // OTP Input Fields
+                        
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                           children: List.generate(
@@ -232,8 +240,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                               decoration: BoxDecoration(
                                 border: Border.all(
                                   color: _focusNodes[index].hasFocus
-                                      ? const Color(0xFF4CAF50) // Light green
-                                      : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
+                                      ? primary 
+                                      : primary.withOpacity(0.3), 
                                   width: 2,
                                 ),
                                 borderRadius: BorderRadius.circular(12),
@@ -247,7 +255,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                                 style: GoogleFonts.poppins(
                                   fontSize: screenWidth * 0.05,
                                   fontWeight: FontWeight.w600,
-                                  color: const Color(0xFF4CAF50), // Light green
+                                   color: primary, 
                                 ),
                                 decoration: const InputDecoration(
                                   counterText: '',
@@ -264,7 +272,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Verify Button
+                        
                         Container(
                           width: double.infinity,
                           height: screenHeight * 0.06,
@@ -272,11 +280,11 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             onPressed: _otp.length == 6 ? _verifyOtp : null,
                             style: ElevatedButton.styleFrom(
                               backgroundColor: _otp.length == 6
-                                  ? const Color(0xFF4CAF50) // Light green
-                                  : const Color(0xFF4CAF50).withOpacity(0.3), // Light green
-                              foregroundColor: Colors.white,
+                                  ? primary 
+                                  : primary.withOpacity(0.3), 
+                              foregroundColor: Theme.of(context).colorScheme.onPrimary,
                               elevation: _otp.length == 6 ? 8 : 0,
-                              shadowColor: Colors.black.withOpacity(0.3),
+                              shadowColor: Theme.of(context).shadowColor.withOpacity(0.3),
                               shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(15),
                               ),
@@ -294,19 +302,19 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         
                         SizedBox(height: screenHeight * 0.04),
                         
-                        // Timer
+                        
                         Text(
                           'Resend code in ${_formatTime(_timeLeft)}',
                           style: GoogleFonts.poppins(
                             fontSize: screenWidth * 0.035,
                             fontWeight: FontWeight.w500,
-                            color: const Color(0xFF4CAF50).withOpacity(0.7), // Light green
+                            color: primary.withOpacity(0.7), 
                           ),
                         ),
                         
                         SizedBox(height: screenHeight * 0.03),
                         
-                        // Resend OTP Button (only visible when timer ends)
+                        
                         if (_canResend)
                           Container(
                             width: double.infinity,
@@ -314,10 +322,10 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             child: ElevatedButton(
                               onPressed: _resendOtp,
                               style: ElevatedButton.styleFrom(
-                                backgroundColor: const Color(0xFF4CAF50), // Light green
-                                foregroundColor: Colors.white,
+                                backgroundColor: primary, 
+                                foregroundColor: Theme.of(context).colorScheme.onPrimary,
                                 elevation: 8,
-                                shadowColor: Colors.black.withOpacity(0.3),
+                                shadowColor: Theme.of(context).shadowColor.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
@@ -333,7 +341,7 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                             ),
                           ),
                         
-                        // Extra padding at bottom to prevent overflow
+                        
                         SizedBox(height: screenHeight * 0.05),
                       ],
                     ),
@@ -344,6 +352,6 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
           ),
         ),
       ),
-    );
+    ));
   }
 } 

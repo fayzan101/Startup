@@ -3,6 +3,8 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'pin_screen.dart';
 import 'signup_screen.dart';
+import '../services/theme_service.dart';
+import '../widgets/connectivity_wrapper.dart';
 
 class AuthScreen extends StatefulWidget {
   const AuthScreen({super.key});
@@ -17,16 +19,16 @@ class _AuthScreenState extends State<AuthScreen> {
     final screenWidth = MediaQuery.of(context).size.width;
     final screenHeight = MediaQuery.of(context).size.height;
 
-         return AnnotatedRegion<SystemUiOverlayStyle>(
-       value: const SystemUiOverlayStyle(
-                   statusBarColor: Color(0xFF4CAF50), // Light green
-         statusBarIconBrightness: Brightness.light,
-         statusBarBrightness: Brightness.dark, // For iOS
-         systemNavigationBarColor: Colors.white,
-         systemNavigationBarIconBrightness: Brightness.light,
-       ),
-             child: Scaffold(
-         backgroundColor: Colors.white,
+     final primary = Theme.of(context).colorScheme.primary;
+     return ConnectivityWrapper(
+       showOfflineUI: true,
+       child: AnnotatedRegion<SystemUiOverlayStyle>(
+         value: ThemeService.instance.systemUiOverlayForPrimary(lightIcons: false),
+               child: Scaffold(
+           extendBody: true,
+           extendBodyBehindAppBar: false,
+           backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+           
          body: Container(
            width: double.infinity,
            height: double.infinity,
@@ -35,58 +37,58 @@ class _AuthScreenState extends State<AuthScreen> {
               padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
               child: Column(
                 children: [
-                                     // Top section with logo and title
+                                     
                    Expanded(
                      flex: 1,
                      child: Column(
                        mainAxisAlignment: MainAxisAlignment.center,
                        children: [
-                                                                                                                                                                                                       // Logo Container
+                                                                                                                                                                                                       
                            Container(
-                             width: screenWidth * 0.45, // 45% of screen width (increased from 35%)
-                             height: screenWidth * 0.45, // 45% of screen width (increased from 35%)
+                             width: screenWidth * 0.45, 
+                             height: screenWidth * 0.45, 
                              decoration: BoxDecoration(
-                               color: Colors.white,
+                               color: Theme.of(context).colorScheme.surface,
                                borderRadius: BorderRadius.circular(20),
                              ),
                             child: Center(
                               child: Image.asset(
                                 'assets/logo.png',
-                                width: screenWidth * 0.35, // 35% of screen width (increased from 25%)
-                                height: screenWidth * 0.35, // 35% of screen width (increased from 25%)
+                                width: screenWidth * 0.35, 
+                                height: screenWidth * 0.35, 
                                 fit: BoxFit.contain,
                               ),
                             ),
                           ),
                          SizedBox(height: screenHeight * 0.01),
-                         Text(
-                           'Welcome to your green journey',
+                           Text(
+                           'Ek Click Pe Sab Hojaega',
                            style: GoogleFonts.poppins(
                              fontSize: screenWidth * 0.035,
                              fontWeight: FontWeight.w400,
-                                                           color: const Color(0xFF4CAF50).withOpacity(0.8), // Light green
+                                                           color: primary.withOpacity(0.8), 
                              letterSpacing: 0.5,
                            ),
                            textAlign: TextAlign.center,
                          ),
                          SizedBox(height: screenHeight * 0.02),
-                                                   // Sign In Button
+                                                  
                           Container(
                             width: double.infinity,
                             height: screenHeight * 0.06,
-                                                         child: ElevatedButton(
-                               onPressed: () {
-                                 print('Sign In button pressed');
-                                 Navigator.push(
-                                   context,
-                                   MaterialPageRoute(builder: (context) => const PinScreen()),
-                                 );
-                               },
+                            child: ElevatedButton(
+                              onPressed: () {
+                                print('Sign In button pressed');
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const PinScreen()),
+                                );
+                              },
                               style: ElevatedButton.styleFrom(
-                                                                 backgroundColor: const Color(0xFF4CAF50), // Light green
-                                foregroundColor: Colors.white,
+                                backgroundColor: primary,
+                                foregroundColor: Theme.of(context).colorScheme.primary,
                                 elevation: 8,
-                                shadowColor: Colors.black.withOpacity(0.3),
+                                shadowColor: Theme.of(context).shadowColor.withOpacity(0.3),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
@@ -97,30 +99,26 @@ class _AuthScreenState extends State<AuthScreen> {
                                   fontSize: screenWidth * 0.04,
                                   fontWeight: FontWeight.w600,
                                   letterSpacing: 1.0,
+                                  color:Colors.white,
                                 ),
                               ),
                             ),
                           ),
                           SizedBox(height: screenHeight * 0.02),
-                          // Sign Up Button
+                          
                           Container(
                             width: double.infinity,
                             height: screenHeight * 0.06,
-                                                         child: ElevatedButton(
-                               onPressed: () {
-                                 Navigator.push(
-                                   context,
-                                   MaterialPageRoute(builder: (context) => const SignUpScreen()),
-                                 );
-                               },
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.transparent,
-                                                                 foregroundColor: const Color(0xFF4CAF50), // Light green
-                                elevation: 0,
-                                side: const BorderSide(
-                                                                     color: Color(0xFF4CAF50), // Light green
-                                  width: 2,
-                                ),
+                            child: OutlinedButton(
+                              onPressed: () {
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(builder: (context) => const SignUpScreen()),
+                                );
+                              },
+                              style: OutlinedButton.styleFrom(
+                                foregroundColor: primary,
+                                side: BorderSide(color: primary),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(15),
                                 ),
@@ -144,8 +142,9 @@ class _AuthScreenState extends State<AuthScreen> {
               ),
             ),
           ),
-        ),
-      ),
-    );
+         ),
+       ),
+     )
+     );
   }
 }
